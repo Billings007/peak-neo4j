@@ -1,0 +1,8 @@
+| name                | PEAK | Min. Credits |
+| Computer Science    | PSE  |           24 |
+| Computer Studies    | NSM  |           18 |
+| Applied Mathematics | NSM  |           14 |
+| Mathematics         | NSM  |           14 |
+| Physics             | NSM  |           19 |
+| Physical Sciences   | NSM  |           15 |
+|                     |      |              |

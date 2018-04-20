@@ -1,0 +1,46 @@
+short.name,subject,number,frequency,long.name
+CS I,CSC,150,Every Semester,Computer Science I: Introduction to Computer Science and Programming
+CS II,CSC,152,Fall Only,Computer Science II: Data Structures
+Architecture,CSC,160,Spring Only,Introduction to Computer Architecture
+Prog. Languages,CSC,253,,Programming Languages
+Databases,CSC,270,Spring Only,Applied Databases
+IS 200,CSC,292,As Needed,Independent Study
+Algorithms,CSC,340,Spring Odd,Design and Analysis of Algorithms
+Automata,CSC,350,Fall Odd,Formal Languages and Automata
+Numerical,CSC,455,,Numerical Computation
+Software Engineering I,CSC,480,,Software Engineering and Senior Design I
+Software Engineering II,CSC,481,,Software Engineering and Senior Design II
+Topics,CSC,490,Winter,Topcis in Computer Science
+IS 400,CSC,494,As Needed,Independent Study
+Internship,CSC,497,As Needed,Internship
+101,MAT,101,All,Survey of Algebra and Probability
+102,MAT,102,All,Functions
+111,MAT,111,,Contemporary Mathematics
+Intro Stats,MAT,125,Every Semester,Data Analysis and Statistics
+Trig,MAT,130,All,Trigonometry
+150,MAT,150,Every Semester,Applied Calculus
+Calc,MAT,175,Every Semester,Single Variable Calculus
+Multi,MAT,275,Fall Only,Multivariate Calculus
+Colloquium,MAT,199,Every Semester,MAPS Colloquium
+Regression,MAT,212,Every Semester,Multiple Regression Analysis
+Discrete,MAT,252,Spring Odd,Discrete Mathematics
+221,MAT,221,Fall Only,Mathematics for Elementary Teachers I
+222,MAT,222,Spring Only,Mathematics for Elementary Teachers II
+28x,MAT,280,Winter Only,Introduction to Proof: Number Theory
+28x,MAT,281,Winter Only,Introduction to Proof: Combinatorics
+28x,MAT,282,Winter Only,Introduction to Proof: Sets & Functions
+IS 200,MAT,292,As Needed,Independent Study
+Probability,MAT,311,Fall Even,Probability
+Math Stat,MAT,312,Spring Odd,Mathematical Statistics
+Diff Eq,MAT,352,Spring Only,Differential Equations
+Linear,MAT,361,Spring Only,Linear Algebra
+Geometry,MAT,370,Winter,Geometry
+HOM,MAT,372,Winter,History of Mathematics
+399T,MAT,399,As Needed,Special Topics in Mathematics
+Complex,MAT,431,,Complex Analysis
+Topology,MAT,441,Fall Odd,Topology
+Real,MAT,451,Spring Even,Real Analysis
+Abstract,MAT,461,,Abstract Algebra
+Machine Learning,MAT,4,,Statistical Machine Learning
+Data Viz,CSC,285,Winter,Data Manipulation & Visualization
+,,,,
