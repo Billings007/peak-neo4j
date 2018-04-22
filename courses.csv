@@ -1,6 +1,6 @@
-short.name,subject,number,frequency,long.name
-CS I,CSC,150,Every Semester,Computer Science I: Introduction to Computer Science and Programming
-CS II,CSC,152,Fall Only,Computer Science II: Data Structures
+id,subject,number,frequency,long.name
+CSI,CSC,150,Every Semester,Computer Science I: Introduction to Computer Science and Programming
+CSII,CSC,152,Fall Only,Computer Science II: Data Structures
 Architecture,CSC,160,Spring Only,Introduction to Computer Architecture
 Prog. Languages,CSC,253,,Programming Languages
 Databases,CSC,270,Spring Only,Applied Databases
