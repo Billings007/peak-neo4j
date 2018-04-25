@@ -1,18 +1,18 @@
-subject,number,name
-CSC,150,"Computer Science I: Introduction to Computer Science and Programming"
-CSC,152,"Computer Science II: Data Structures"
-CSC,160,"Introduction to Computer Architecture"
-CSC,235,"Programming Languages"
-CSC,270,"Applied Databases"
-CSC,285,"Data Manipulation and Visualization"
-CSC,294,"Independent Study"
-CSC,340,"Design and Analysis of Algorithms"
-CSC,350,"Formal Languages and Automata"
-CSC,455,"Numerical Computation"
-CSC,480,"Software Engineering and Senior Design I"
-CSC,481,"Software Engineering & Senior Design II"
+subject,number,name,credits,recClass,freq
+CSC,150,"Computer Science I: Introduction to Computer Science and Programming",3,F,Every
+CSC,152,"Computer Science II: Data Structures",4,So,Fall
+CSC,160,"Introduction to Computer Architecture",3,So,Spring
+CSC,235,"Programming Languages",3,So,
+CSC,270,"Applied Databases",3,J,Spring
+CSC,285,"Data Manipulation and Visualization",3,So,Winter
+CSC,294,"Independent Study",1:3,,
+CSC,340,"Design and Analysis of Algorithms",3,J,
+CSC,350,"Formal Languages and Automata",3,S
+CSC,455,"Numerical Computation",3,S
+CSC,480,"Software Engineering and Senior Design I",3,S,Fall
+CSC,481,"Software Engineering & Senior Design II",3,S,Spring
 CSC,482,"Software Engineering & Senior Design III"
-CSC,490,"Topics in Computer Science"
+CSC,490,"Topics in Computer Science",3,J,Winter
 CSC,494,"Independent Study"
 CSC,497,"Internship"
 MAT,101,"Survey of Algebra and Probability"
