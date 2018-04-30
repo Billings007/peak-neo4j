@@ -1,0 +1,71 @@
+---
+title: "PEAK Neo4j Data Model"
+author: "Jason Preszler"
+date: "April 30, 2018"
+output: html_document
+---
+
+# Node Types
+ *  Course
+ *  Major
+ *  Minor
+ *  PEAK
+ *  Component: This is a sub-unit of a major of minor in which several courses could be used to satisfy a requirement. 
+ *  Instructor
+ 
+# Relationship Types
+ *  Prerequisite
+ *  Requirement
+ *  Option
+ *  Satisfies
+ *  Taught_By
+ *  Contact: primary faculty member for questions about major, minor, course.
+ 
+ # Node Properties
+ ## Courses
+ *  id: an internally used identifier, usually combination of subject and number
+ *  subject: the three letter subject code from the catalog
+ *  number: the three digit course number
+ *  lab: Either "L" or blank, depending on lab version (PHY-221 or PHY-221L)
+ *  name: official course name
+ *  description: catalog description
+ *  minCredits: number
+ *  maxCredits: number, most courses have minCredits==maxCredits
+ *  frequency: code for how often the course is taught as follows
+
+    **  FS: every fall and spring
+    **  ALL: every Fal, Winter, Spring
+    **  W: winter only
+    **  F: fall only
+    **  S: spring only
+    **  FO:  Fall of odd number years
+    **  FE: Fall of Even number years
+    **  SO:
+    **  SE:
+    **  WE:
+    **  WO:
+    **  AN: As needed or student demand, typically internships, ind. study, and other irregular or single student courses go here.
+
+## Major
+* Name
+* MinCredits
+
+## Minor
+* Name
+* MinCredits
+
+## PEAK
+* name: long name of PEAK, i.e. "Natural Sciences and Mathematics"
+* code: three letter code, i.e. "NSM"
+
+## Instructor
+* Name
+* Email
+* Office
+* Dept.
+* phone
+
+## Component
+* Name
+* Description
+
