@@ -6,6 +6,7 @@ output: html_document
 ---
 
 # Node Types
+
  *  Course
  *  Major
  *  Minor
@@ -14,6 +15,7 @@ output: html_document
  *  Instructor
  
 # Relationship Types
+
  *  Prerequisite
  *  Requirement
  *  Option
@@ -22,7 +24,9 @@ output: html_document
  *  Contact: primary faculty member for questions about major, minor, course.
  
  # Node Properties
+ 
  ## Courses
+ 
  *  id: an internally used identifier, usually combination of subject and number
  *  subject: the three letter subject code from the catalog
  *  number: the three digit course number
@@ -47,18 +51,22 @@ output: html_document
     **  AN: As needed or student demand, typically internships, ind. study, and other irregular or single student courses go here.
 
 ## Major
+
 * Name
 * MinCredits
 
 ## Minor
+
 * Name
 * MinCredits
 
 ## PEAK
+
 * name: long name of PEAK, i.e. "Natural Sciences and Mathematics"
 * code: three letter code, i.e. "NSM"
 
 ## Instructor
+
 * Name
 * Email
 * Office
@@ -66,6 +74,22 @@ output: html_document
 * phone
 
 ## Component
+
 * Name
 * Description
 
+# Graph
+
+The following graph depicts the basic data model, using the igraph library in R rather than dumping the schema from Neo4j (since nothing is in Neo4j yet).
+
+```{r dmGraph, message=FALSE, warning=FALSE}
+library(igraph)
+
+g <- graph.empty(6, directed=TRUE)
+init_edges <- c(1,1, 1,5, 5,2, 5,3, 2,4, 3,4, 1,6, 2,6, 3,6, 1,2, 1,3)
+
+g <- add.edges(g, init_edges)
+V(g)$name <- c("Course", "Major", "Minor", "PEAK", "Component", "Instructor")
+
+plot(g, layout=layout.fruchterman.reingold)
+```
