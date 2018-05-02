@@ -1,6 +1,7 @@
 library(rvest)
 library(stringr)
 library(dplyr)
+library(purrr)
 
 #url for courses in catalog
 base_url <- "http://collegeofidaho.smartcatalogiq.com"
@@ -21,15 +22,15 @@ names(subDF) <- c("sub", "subject")
 #get url for subject, for each row in subDF
 subDF <-subDF %>% mutate(url= paste0(base_url,base_url_ext,'/',sub,'-',str_replace_all(subject,' ','-')))
 
-get_class_list <- function(sub_url, sub_code){
+get_class_list <- function(i){
   #get list of links on subject page
-  class_links <- html_nodes(read_html(sub_url), 'a')
+  class_links <- html_nodes(read_html(subDF$url[i]), 'a')
   #turn links to text
   class_list <- html_text(class_links)
   #only keep links for classes, each subject has 
   #classes starting in a different position
-  class_list <- class_list[str_detect(class_list, paste0(sub_code,'-'))]
+  class_list <- class_list[str_detect(class_list, paste0(subDF$sub[i],'-'))]
   #now build class dataframe with sub,number,url - we'll get the
   #name and other details on the next scrape
-  
+  return(class_list)
 }
