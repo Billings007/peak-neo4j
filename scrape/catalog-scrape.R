@@ -12,6 +12,7 @@ base_html <- read_html(paste0(base_url,base_url_ext))
 subjectLinks <- html_nodes(base_html, 'a')
 #convert links to text
 subjectText <- html_text(subjectLinks)
+sub_url <- html_attr(subjectLinks, 'href')[78:120]
 #pick out what corresponds to subject list
 #we now have subject codes and names
 subjectText <- subjectText[78:120]
@@ -21,20 +22,24 @@ names(subDF) <- c("sub", "subject")
 subDF <-mutate(subDF, sub=str_trim(sub, side="both"), subject=str_trim(subject, side="both"))
 
 #get url for subject, for each row in subDF
-subDF <-subDF %>% mutate(url= paste0(base_url,base_url_ext,'/',sub,'-',str_replace_all(subject,' ','-')))
+#subDF <-subDF %>% mutate(url= paste0(base_url,base_url_ext,'/',sub,'-',str_replace_all(subject,' ','-')))
+subDF <- mutate(subDF, url=paste0(base_url,sub_url))
 
-#hack to fix ENV link issue
-envStud_url <- subDF[subDF$sub=='ENV',]$url
-subDF[subDF$sub=='ENV',]$url <- str_replace(envStud_url, 'Studies', 'Science')
+#hack to fix ENV link issue -- not needed since url is pulled from html_attr
+#envStud_url <- subDF[subDF$sub=='ENV',]$url
+#subDF[subDF$sub=='ENV',]$url <- str_replace(envStud_url, 'Studies', 'Science')
 
 get_class_list <- function(i){
   #get list of links on subject page
   class_links <- html_nodes(read_html(subDF$url[i]), 'a')
   #turn links to text
   class_list <- html_text(class_links)
+  class_url <- html_attr(class_links, 'href')
+  classDF <- data.frame(list=class_list, url=class_url)
+  
   #only keep links for classes, each subject has 
   #classes starting in a different position
-  class_list <- class_list[str_detect(class_list, paste0(subDF$sub[i],'-'))]
+  classDF <- classDF %>% filter(str_detect(list, paste0(subDF$sub[i],'-')))
   #now build class dataframe with sub,number,name,url - we'll get the
   #other details on the next scrape
   
