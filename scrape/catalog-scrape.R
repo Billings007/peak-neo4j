@@ -16,8 +16,9 @@ subjectText <- html_text(subjectLinks)
 #we now have subject codes and names
 subjectText <- subjectText[78:120]
 
-subDF <- str_remove_all(subjectText, ' ') %>% str_split(pattern= '-', n=2, simplify=TRUE) %>% as.data.frame()
+subDF <- str_split(subjectText,pattern= '-', n=2, simplify=TRUE) %>% as.data.frame()
 names(subDF) <- c("sub", "subject")
+subDF <-mutate(subDF, sub=str_trim(sub, side="both"), subject=str_trim(subject, side="both"))
 
 #get url for subject, for each row in subDF
 subDF <-subDF %>% mutate(url= paste0(base_url,base_url_ext,'/',sub,'-',str_replace_all(subject,' ','-')))
@@ -32,5 +33,7 @@ get_class_list <- function(i){
   class_list <- class_list[str_detect(class_list, paste0(subDF$sub[i],'-'))]
   #now build class dataframe with sub,number,url - we'll get the
   #name and other details on the next scrape
+  
+  print(head(class_list)) #for testing to see when a suject fails
   return(class_list)
 }
