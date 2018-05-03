@@ -51,7 +51,7 @@ get_class_list <- function(i){
   
   #the id field has the last part of the new url, we need the 
   #subject url with the course level (100,200,etc) then id
-  classDF <- mutate(classDF, url=paste0(base_html,url))
+  classDF <- mutate(classDF, url=paste0(base_url,url))
   
   print(i) #for testing to see when a suject fails
   return(classDF)
