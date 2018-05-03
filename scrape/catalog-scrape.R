@@ -2,6 +2,7 @@ library(rvest)
 library(stringr)
 library(dplyr)
 library(purrr)
+library(tidyr)
 
 #url for courses in catalog
 base_url <- "http://collegeofidaho.smartcatalogiq.com"
@@ -45,12 +46,13 @@ get_class_list <- function(i){
   
   #We'll split on 1st space, discard everything after it and use
   #what's before it to build the required DF
-  class_list <- str_split(class_list, " ", n=2, simplify=TRUE) %>% data.frame()
-  names(class_list) <- c("id","Name")
+  classDF <- separate(classDF, list, into=c("id", "name"),sep=" ",extra="merge") 
+  classDF <- separate(classDF, id, into=c("sub", "number"), sep="-")
   
   #the id field has the last part of the new url, we need the 
   #subject url with the course level (100,200,etc) then id
-  class_list <- mutate(class_list, url=paste0())
+  classDF <- mutate(classDF, url=paste0(base_html,url))
+  
   print(i) #for testing to see when a suject fails
-  return(class_list)
+  return(classDF)
 }
