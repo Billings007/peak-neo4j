@@ -127,52 +127,108 @@ $(document).ready(function () {
 
 <p>The current (2017-2018) undergraduate catalog was used to build a list of subjects, course numbers, names, and urls to course descriptions. Here’s what the dataset looks like:</p>
 <pre class="r"><code>classes &lt;- read.csv(&quot;data/class-list-2017-2018.csv&quot;, header=TRUE)
-kable(head(classes))</code></pre>
-<table>
+kable(head(classes), &quot;html&quot;)%&gt;%  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width=FALSE)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">sub</th>
-<th align="left">number</th>
-<th align="left">name</th>
-<th align="left">url</th>
+<tr>
+<th style="text-align:left;">
+sub
+</th>
+<th style="text-align:left;">
+number
+</th>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+url
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="left">221</td>
-<td align="left">Financial Accounting</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-221" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-221</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+221
+</td>
+<td style="text-align:left;">
+Financial Accounting
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-221" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-221</a>
+</td>
 </tr>
-<tr class="even">
-<td align="left">ACC</td>
-<td align="left">222</td>
-<td align="left">Managerial Accounting</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-222" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-222</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+222
+</td>
+<td style="text-align:left;">
+Managerial Accounting
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-222" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/200/ACC-222</a>
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="left">318</td>
-<td align="left">Intermediate Accounting I</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-318" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-318</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+318
+</td>
+<td style="text-align:left;">
+Intermediate Accounting I
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-318" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-318</a>
+</td>
 </tr>
-<tr class="even">
-<td align="left">ACC</td>
-<td align="left">320</td>
-<td align="left">Intermediate Accounting II</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-320" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-320</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+320
+</td>
+<td style="text-align:left;">
+Intermediate Accounting II
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-320" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-320</a>
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="left">323</td>
-<td align="left">Electronic Accounting &amp; Analysis</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-323" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-323</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+323
+</td>
+<td style="text-align:left;">
+Electronic Accounting &amp; Analysis
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-323" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/300/ACC-323</a>
+</td>
 </tr>
-<tr class="even">
-<td align="left">ACC</td>
-<td align="left">423</td>
-<td align="left">Auditing</td>
-<td align="left"><a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/400/ACC-423" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/400/ACC-423</a></td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+423
+</td>
+<td style="text-align:left;">
+Auditing
+</td>
+<td style="text-align:left;">
+<a href="http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/400/ACC-423" class="uri">http://collegeofidaho.smartcatalogiq.com/en/current/Undergraduate-Catalog/Courses/ACC-Accounting/400/ACC-423</a>
+</td>
 </tr>
 </tbody>
 </table>
@@ -180,186 +236,362 @@ kable(head(classes))</code></pre>
 <p>Below is a table of courses by subject code (note this is not aligned with a department) and number of courses by subject and course level.</p>
 <div id="courses-by-subject" class="section level2">
 <h2>Courses by Subject</h2>
-<pre class="r"><code>classes %&gt;% group_by(sub) %&gt;% summarise(count=n()) %&gt;% kable()</code></pre>
-<table>
+<pre class="r"><code>classes %&gt;% group_by(sub) %&gt;% summarise(count=n()) %&gt;% kable(&quot;html&quot;) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width=FALSE)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">sub</th>
-<th align="right">count</th>
+<tr>
+<th style="text-align:left;">
+sub
+</th>
+<th style="text-align:right;">
+count
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="right">12</td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:right;">
+12
+</td>
 </tr>
-<tr class="even">
-<td align="left">ART</td>
-<td align="right">42</td>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:right;">
+42
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ASN</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+ASN
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
-<tr class="even">
-<td align="left">ATH</td>
-<td align="right">17</td>
+<tr>
+<td style="text-align:left;">
+ATH
+</td>
+<td style="text-align:right;">
+17
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ATHSOC</td>
-<td align="right">6</td>
+<tr>
+<td style="text-align:left;">
+ATHSOC
+</td>
+<td style="text-align:right;">
+6
+</td>
 </tr>
-<tr class="even">
-<td align="left">BIO</td>
-<td align="right">92</td>
+<tr>
+<td style="text-align:left;">
+BIO
+</td>
+<td style="text-align:right;">
+92
+</td>
 </tr>
-<tr class="odd">
-<td align="left">BUS</td>
-<td align="right">42</td>
+<tr>
+<td style="text-align:left;">
+BUS
+</td>
+<td style="text-align:right;">
+42
+</td>
 </tr>
-<tr class="even">
-<td align="left">CHE</td>
-<td align="right">37</td>
+<tr>
+<td style="text-align:left;">
+CHE
+</td>
+<td style="text-align:right;">
+37
+</td>
 </tr>
-<tr class="odd">
-<td align="left">CHI</td>
-<td align="right">7</td>
+<tr>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:right;">
+7
+</td>
 </tr>
-<tr class="even">
-<td align="left">CSC</td>
-<td align="right">15</td>
+<tr>
+<td style="text-align:left;">
+CSC
+</td>
+<td style="text-align:right;">
+15
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ECN</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+ECN
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">EDU</td>
-<td align="right">24</td>
+<tr>
+<td style="text-align:left;">
+EDU
+</td>
+<td style="text-align:right;">
+24
+</td>
 </tr>
-<tr class="odd">
-<td align="left">EDUSPA</td>
-<td align="right">3</td>
+<tr>
+<td style="text-align:left;">
+EDUSPA
+</td>
+<td style="text-align:right;">
+3
+</td>
 </tr>
-<tr class="even">
-<td align="left">ENG</td>
-<td align="right">61</td>
+<tr>
+<td style="text-align:left;">
+ENG
+</td>
+<td style="text-align:right;">
+61
+</td>
 </tr>
-<tr class="odd">
-<td align="left">ENV</td>
-<td align="right">21</td>
+<tr>
+<td style="text-align:left;">
+ENV
+</td>
+<td style="text-align:right;">
+21
+</td>
 </tr>
-<tr class="even">
-<td align="left">ESL</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:left;">
+ESL
+</td>
+<td style="text-align:right;">
+2
+</td>
 </tr>
-<tr class="odd">
-<td align="left">FRE</td>
-<td align="right">10</td>
+<tr>
+<td style="text-align:left;">
+FRE
+</td>
+<td style="text-align:right;">
+10
+</td>
 </tr>
-<tr class="even">
-<td align="left">FYS</td>
-<td align="right">2</td>
+<tr>
+<td style="text-align:left;">
+FYS
+</td>
+<td style="text-align:right;">
+2
+</td>
 </tr>
-<tr class="odd">
-<td align="left">GEO</td>
-<td align="right">8</td>
+<tr>
+<td style="text-align:left;">
+GEO
+</td>
+<td style="text-align:right;">
+8
+</td>
 </tr>
-<tr class="even">
-<td align="left">GER</td>
-<td align="right">7</td>
+<tr>
+<td style="text-align:left;">
+GER
+</td>
+<td style="text-align:right;">
+7
+</td>
 </tr>
-<tr class="odd">
-<td align="left">HHP</td>
-<td align="right">44</td>
+<tr>
+<td style="text-align:left;">
+HHP
+</td>
+<td style="text-align:right;">
+44
+</td>
 </tr>
-<tr class="even">
-<td align="left">HHPA</td>
-<td align="right">29</td>
+<tr>
+<td style="text-align:left;">
+HHPA
+</td>
+<td style="text-align:right;">
+29
+</td>
 </tr>
-<tr class="odd">
-<td align="left">HIS</td>
-<td align="right">94</td>
+<tr>
+<td style="text-align:left;">
+HIS
+</td>
+<td style="text-align:right;">
+94
+</td>
 </tr>
-<tr class="even">
-<td align="left">HSC</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+HSC
+</td>
+<td style="text-align:right;">
+5
+</td>
 </tr>
-<tr class="odd">
-<td align="left">IND</td>
-<td align="right">16</td>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+16
+</td>
 </tr>
-<tr class="even">
-<td align="left">JOURN</td>
-<td align="right">10</td>
+<tr>
+<td style="text-align:left;">
+JOURN
+</td>
+<td style="text-align:right;">
+10
+</td>
 </tr>
-<tr class="odd">
-<td align="left">LAS</td>
-<td align="right">8</td>
+<tr>
+<td style="text-align:left;">
+LAS
+</td>
+<td style="text-align:right;">
+8
+</td>
 </tr>
-<tr class="even">
-<td align="left">LSP</td>
-<td align="right">8</td>
+<tr>
+<td style="text-align:left;">
+LSP
+</td>
+<td style="text-align:right;">
+8
+</td>
 </tr>
-<tr class="odd">
-<td align="left">MAT</td>
-<td align="right">37</td>
+<tr>
+<td style="text-align:left;">
+MAT
+</td>
+<td style="text-align:right;">
+37
+</td>
 </tr>
-<tr class="even">
-<td align="left">MFL</td>
-<td align="right">11</td>
+<tr>
+<td style="text-align:left;">
+MFL
+</td>
+<td style="text-align:right;">
+11
+</td>
 </tr>
-<tr class="odd">
-<td align="left">MS</td>
-<td align="right">11</td>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:right;">
+11
+</td>
 </tr>
-<tr class="even">
-<td align="left">MUS</td>
-<td align="right">54</td>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:right;">
+54
+</td>
 </tr>
-<tr class="odd">
-<td align="left">MUSAP</td>
-<td align="right">5</td>
+<tr>
+<td style="text-align:left;">
+MUSAP
+</td>
+<td style="text-align:right;">
+5
+</td>
 </tr>
-<tr class="even">
-<td align="left">PHI</td>
-<td align="right">19</td>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+19
+</td>
 </tr>
-<tr class="odd">
-<td align="left">PHY</td>
-<td align="right">31</td>
+<tr>
+<td style="text-align:left;">
+PHY
+</td>
+<td style="text-align:right;">
+31
+</td>
 </tr>
-<tr class="even">
-<td align="left">POE</td>
-<td align="right">51</td>
+<tr>
+<td style="text-align:left;">
+POE
+</td>
+<td style="text-align:right;">
+51
+</td>
 </tr>
-<tr class="odd">
-<td align="left">PSY</td>
-<td align="right">54</td>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:right;">
+54
+</td>
 </tr>
-<tr class="even">
-<td align="left">REL</td>
-<td align="right">30</td>
+<tr>
+<td style="text-align:left;">
+REL
+</td>
+<td style="text-align:right;">
+30
+</td>
 </tr>
-<tr class="odd">
-<td align="left">SOC</td>
-<td align="right">17</td>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:right;">
+17
+</td>
 </tr>
-<tr class="even">
-<td align="left">SPA</td>
-<td align="right">30</td>
+<tr>
+<td style="text-align:left;">
+SPA
+</td>
+<td style="text-align:right;">
+30
+</td>
 </tr>
-<tr class="odd">
-<td align="left">SPE</td>
-<td align="right">12</td>
+<tr>
+<td style="text-align:left;">
+SPE
+</td>
+<td style="text-align:right;">
+12
+</td>
 </tr>
-<tr class="even">
-<td align="left">STS</td>
-<td align="right">1</td>
+<tr>
+<td style="text-align:left;">
+STS
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">THE</td>
-<td align="right">45</td>
+<tr>
+<td style="text-align:left;">
+THE
+</td>
+<td style="text-align:right;">
+45
+</td>
 </tr>
 </tbody>
 </table>
@@ -369,730 +601,1594 @@ kable(head(classes))</code></pre>
 <h2>Course by Subject and Level</h2>
 <pre class="r"><code>#add level variable
 classes &lt;- classes %&gt;% mutate(level=paste0(str_extract(number, '[:digit:]'),&quot;00&quot;))
-group_by(classes, sub, level)%&gt;%summarise(count=n()) %&gt;% kable()</code></pre>
-<table>
+group_by(classes, sub, level)%&gt;%summarise(count=n()) %&gt;% kable(&quot;html&quot;) %&gt;% kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;), full_width=FALSE)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
-<tr class="header">
-<th align="left">sub</th>
-<th align="left">level</th>
-<th align="right">count</th>
+<tr>
+<th style="text-align:left;">
+sub
+</th>
+<th style="text-align:left;">
+level
+</th>
+<th style="text-align:right;">
+count
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="left">200</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">ACC</td>
-<td align="left">300</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">ACC</td>
-<td align="left">400</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">ART</td>
-<td align="left">100</td>
-<td align="right">11</td>
-</tr>
-<tr class="odd">
-<td align="left">ART</td>
-<td align="left">200</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">ART</td>
-<td align="left">300</td>
-<td align="right">14</td>
-</tr>
-<tr class="odd">
-<td align="left">ART</td>
-<td align="left">400</td>
-<td align="right">8</td>
-</tr>
-<tr class="even">
-<td align="left">ASN</td>
-<td align="left">300</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">ASN</td>
-<td align="left">400</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">ATH</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">ATH</td>
-<td align="left">200</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">ATH</td>
-<td align="left">300</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">ATH</td>
-<td align="left">400</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">ATHSOC</td>
-<td align="left">200</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">ATHSOC</td>
-<td align="left">400</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">BIO</td>
-<td align="left">100</td>
-<td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">BIO</td>
-<td align="left">200</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">BIO</td>
-<td align="left">300</td>
-<td align="right">52</td>
-</tr>
-<tr class="odd">
-<td align="left">BIO</td>
-<td align="left">400</td>
-<td align="right">8</td>
-</tr>
-<tr class="even">
-<td align="left">BUS</td>
-<td align="left">100</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">BUS</td>
-<td align="left">200</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">BUS</td>
-<td align="left">300</td>
-<td align="right">16</td>
-</tr>
-<tr class="odd">
-<td align="left">BUS</td>
-<td align="left">400</td>
-<td align="right">17</td>
-</tr>
-<tr class="even">
-<td align="left">CHE</td>
-<td align="left">100</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">CHE</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">CHE</td>
-<td align="left">300</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">CHE</td>
-<td align="left">400</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left">CHI</td>
-<td align="left">100</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">CHI</td>
-<td align="left">200</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">CHI</td>
-<td align="left">400</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">CSC</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">CSC</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">CSC</td>
-<td align="left">300</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">CSC</td>
-<td align="left">400</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">ECN</td>
-<td align="left">200</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">EDU</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">EDU</td>
-<td align="left">300</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">EDU</td>
-<td align="left">400</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">EDUSPA</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">ENG</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">ENG</td>
-<td align="left">200</td>
-<td align="right">25</td>
-</tr>
-<tr class="even">
-<td align="left">ENG</td>
-<td align="left">300</td>
-<td align="right">28</td>
-</tr>
-<tr class="odd">
-<td align="left">ENG</td>
-<td align="left">400</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">ENV</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">ENV</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">ENV</td>
-<td align="left">300</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left">ENV</td>
-<td align="left">400</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">ESL</td>
-<td align="left">100</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">FRE</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">FRE</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">FRE</td>
-<td align="left">300</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">FYS</td>
-<td align="left">100</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">GEO</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">GEO</td>
-<td align="left">300</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">GEO</td>
-<td align="left">400</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">GER</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">GER</td>
-<td align="left">300</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">GER</td>
-<td align="left">400</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">HHP</td>
-<td align="left">100</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">HHP</td>
-<td align="left">200</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">HHP</td>
-<td align="left">300</td>
-<td align="right">17</td>
-</tr>
-<tr class="even">
-<td align="left">HHP</td>
-<td align="left">400</td>
-<td align="right">14</td>
-</tr>
-<tr class="odd">
-<td align="left">HHPA</td>
-<td align="left">100</td>
-<td align="right">24</td>
-</tr>
-<tr class="even">
-<td align="left">HHPA</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">HHPA</td>
-<td align="left">300</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">HIS</td>
-<td align="left">100</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">HIS</td>
-<td align="left">200</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">HIS</td>
-<td align="left">300</td>
-<td align="right">63</td>
-</tr>
-<tr class="odd">
-<td align="left">HIS</td>
-<td align="left">400</td>
-<td align="right">13</td>
-</tr>
-<tr class="even">
-<td align="left">HSC</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">HSC</td>
-<td align="left">300</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">HSC</td>
-<td align="left">400</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">IND</td>
-<td align="left">100</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">IND</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">IND</td>
-<td align="left">300</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left">IND</td>
-<td align="left">400</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">JOURN</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">JOURN</td>
-<td align="left">300</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">JOURN</td>
-<td align="left">400</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">LAS</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">LAS</td>
-<td align="left">200</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">LAS</td>
-<td align="left">300</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">LAS</td>
-<td align="left">400</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">LSP</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">LSP</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">LSP</td>
-<td align="left">300</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">LSP</td>
-<td align="left">400</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">MAT</td>
-<td align="left">100</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left">MAT</td>
-<td align="left">200</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left">MAT</td>
-<td align="left">300</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">MAT</td>
-<td align="left">400</td>
-<td align="right">8</td>
-</tr>
-<tr class="even">
-<td align="left">MFL</td>
-<td align="left">200</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">MFL</td>
-<td align="left">300</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">MFL</td>
-<td align="left">400</td>
-<td align="right">8</td>
-</tr>
-<tr class="odd">
-<td align="left">MS</td>
-<td align="left">100</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">MS</td>
-<td align="left">200</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">MS</td>
-<td align="left">300</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">MS</td>
-<td align="left">400</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">MUS</td>
-<td align="left">000</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">MUS</td>
-<td align="left">100</td>
-<td align="right">19</td>
-</tr>
-<tr class="odd">
-<td align="left">MUS</td>
-<td align="left">200</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left">MUS</td>
-<td align="left">300</td>
-<td align="right">14</td>
-</tr>
-<tr class="odd">
-<td align="left">MUS</td>
-<td align="left">400</td>
-<td align="right">10</td>
-</tr>
-<tr class="even">
-<td align="left">MUSAP</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">MUSAP</td>
-<td align="left">200</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">MUSAP</td>
-<td align="left">300</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">MUSAP</td>
-<td align="left">400</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">PHI</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">PHI</td>
-<td align="left">200</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">PHI</td>
-<td align="left">300</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left">PHI</td>
-<td align="left">400</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">PHY</td>
-<td align="left">100</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">PHY</td>
-<td align="left">200</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left">PHY</td>
-<td align="left">300</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">PHY</td>
-<td align="left">400</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">POE</td>
-<td align="left">100</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">POE</td>
-<td align="left">200</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">POE</td>
-<td align="left">300</td>
-<td align="right">27</td>
-</tr>
-<tr class="odd">
-<td align="left">POE</td>
-<td align="left">400</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">PSY</td>
-<td align="left">100</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="left">PSY</td>
-<td align="left">200</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">PSY</td>
-<td align="left">300</td>
-<td align="right">26</td>
-</tr>
-<tr class="odd">
-<td align="left">PSY</td>
-<td align="left">400</td>
-<td align="right">13</td>
-</tr>
-<tr class="even">
-<td align="left">REL</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">REL</td>
-<td align="left">200</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">REL</td>
-<td align="left">300</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">REL</td>
-<td align="left">400</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">SOC</td>
-<td align="left">100</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">SOC</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">SOC</td>
-<td align="left">300</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">SOC</td>
-<td align="left">400</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">SPA</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">SPA</td>
-<td align="left">200</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">SPA</td>
-<td align="left">300</td>
-<td align="right">15</td>
-</tr>
-<tr class="odd">
-<td align="left">SPA</td>
-<td align="left">400</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">SPE</td>
-<td align="left">100</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">SPE</td>
-<td align="left">200</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">SPE</td>
-<td align="left">300</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="left">STS</td>
-<td align="left">100</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">THE</td>
-<td align="left">100</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">THE</td>
-<td align="left">200</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">THE</td>
-<td align="left">300</td>
-<td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">THE</td>
-<td align="left">400</td>
-<td align="right">8</td>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACC
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ASN
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ASN
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATH
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATH
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATH
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATH
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATHSOC
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ATHSOC
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIO
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIO
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIO
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIO
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUS
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUS
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BUS
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHE
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHE
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHE
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHE
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSC
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSC
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSC
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSC
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ECN
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDU
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDU
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDU
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EDUSPA
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENG
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENG
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENG
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENG
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENV
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENV
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENV
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ENV
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ESL
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FRE
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FRE
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FRE
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FYS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GEO
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GEO
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GEO
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GER
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GER
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GER
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHP
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHP
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHP
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHP
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHPA
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHPA
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HHPA
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HIS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HIS
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HIS
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HIS
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HSC
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HSC
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HSC
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JOURN
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JOURN
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JOURN
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAS
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAS
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAS
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSP
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSP
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSP
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSP
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAT
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAT
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAT
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAT
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MFL
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MFL
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MFL
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MS
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:left;">
+000
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUS
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUSAP
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUSAP
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUSAP
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MUSAP
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHY
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHY
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHY
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHY
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POE
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POE
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POE
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POE
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+REL
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+REL
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+REL
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+REL
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOC
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPA
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPA
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPA
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPA
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPE
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPE
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPE
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+STS
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+THE
+</td>
+<td style="text-align:left;">
+100
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+THE
+</td>
+<td style="text-align:left;">
+200
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+THE
+</td>
+<td style="text-align:left;">
+300
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+THE
+</td>
+<td style="text-align:left;">
+400
+</td>
+<td style="text-align:right;">
+8
+</td>
 </tr>
 </tbody>
 </table>
