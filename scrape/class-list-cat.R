@@ -46,7 +46,13 @@ get_class_list <- function(i){
   
   #We'll split on 1st space, discard everything after it and use
   #what's before it to build the required DF
-  classDF <- separate(classDF, list, into=c("id", "name"),sep=" ",extra="merge") 
+  classDF <- separate(classDF, list, into=c("id", "name"),sep=" ",extra="merge")
+  
+  #two theater classes have typos -THE-###
+  #this is solely dealing with that
+  classDF$id <- str_replace(classDF$id, "-THE", "THE")
+
+  #back to normal  
   classDF <- separate(classDF, id, into=c("sub", "number"), sep="-")
   
   #the id field has the last part of the new url, we need the 
@@ -57,5 +63,3 @@ get_class_list <- function(i){
 }
 
 classes <- map_dfr(1:length(subDF$sub), get_class_list)
-
-write.csv(classes, "classes-catalog-2017.csv", row.names = FALSE)
