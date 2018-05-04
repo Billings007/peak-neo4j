@@ -1,0 +1,43 @@
+---
+title: "Writing Survey"
+author: "Jason Preszler"
+date: "May 4, 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(kableExtra)
+library(printr)
+library(stringr)
+classes <- read.csv("data/class-list-2017-2018.csv", header=TRUE)
+classes <- classes %>% dplyr::select(-url)
+names(classes) <- c("Subject", "Number", "Name")
+len <- length(classes$Subject)
+classes <- classes %>% mutate(Q1 = vector(mode="character",length=len),Q2 = vector(mode="character",length=len),Q3 = vector(mode = "character", length=len),Q4 = vector(mode = "character",length=len), Name = str_replace_all(Name, "\n", " "))
+```
+
+# Subject and Courses
+```{r subCourse, echo=FALSE, results='asis', warning=FALSE, error=FALSE, message=FALSE}
+#get list of subjects
+subs <- unique(classes$Subject)
+
+questions <- data.frame(ID = c("Q1.","Q2.","Q3.","Q4."),
+                        Question = c(
+                          "Does writing in the course function to intentionally improve the students' written communication skills with specific suggestions for improvement and/or discussion of effective argumentation?",
+                          "Does writing in the course have an iterative process? This process may include: writing multiple drafts of a single assignment, or completing multiple similar assignments with appropriate feedback.",
+                          "Does writing in the course include a peer review component where students are asked to provide feedback to their peer? This feedback may include comments on organization, tone, flow, format, gramma, and content. These comments may be oral or written.",
+                          "Approximately how many assignments and/or pages are assigned for each course?"
+                        ))
+for(sub in subs){
+  cat('\\newpage')
+  
+  kable(questions,'markdown') %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% print()
+  
+  sub_class<- filter(classes, Subject==sub) 
+  kable(sub_class,'markdown') %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>% print()
+  
+}
