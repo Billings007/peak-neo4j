@@ -53,6 +53,9 @@ get_class_list <- function(i){
   #subject url with the course level (100,200,etc) then id
   classDF <- mutate(classDF, url=paste0(base_url,url))
   
-  print(i) #for testing to see when a suject fails
   return(classDF)
 }
+
+classes <- map_dfr(1:length(subDF$sub), get_class_list)
+
+write.csv(classes, "classes-catalog-2017.csv", row.names = FALSE)
