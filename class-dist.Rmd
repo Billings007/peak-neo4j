@@ -1,0 +1,39 @@
+---
+title: "Course Distribution"
+author: "Jason Preszler"
+date: "May 4, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(knitr)
+```
+
+The current (2017-2018) undergraduate catalog was used to build a list of subjects, course numbers, names, and urls to course descriptions. Here's what the dataset looks like:
+```{r loadClass}
+classes <- read.csv("data/class-list-2017-2018.csv", header=TRUE)
+kable(head(classes))
+```
+
+Note that there are `r length(classes$sub)` courses in the catalog among the `r length(unique(classes$sub))` subjects.
+
+Below is a table of courses by subject code (note this is not aligned with a department) and number of courses by subject and course level.
+
+## Courses by Subject
+```{r subNum}
+classes %>% group_by(sub) %>% summarise(count=n()) %>% kable()
+```
+
+Notice the each of Biology and History acount for almost $10\%$ of the total courses.
+
+## Course by Subject and Level
+```{r subLevel}
+#add level variable
+classes <- classes %>% mutate(level=paste0(str_extract(number, '[:digit:]'),"00"))
+group_by(classes, sub, level)%>%summarise(count=n()) %>% kable()
+```
+
