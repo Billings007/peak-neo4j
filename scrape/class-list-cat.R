@@ -59,6 +59,9 @@ get_class_list <- function(i){
   #subject url with the course level (100,200,etc) then id
   classDF <- mutate(classDF, url=paste0(base_url,url))
   
+  #several class names have '\n' in them, let's remove that now
+  classDF <- mutate(classDF, name=str_replace_all(name, '\n',' '))
+  
   return(classDF)
 }
 
