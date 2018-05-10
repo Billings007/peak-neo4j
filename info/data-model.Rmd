@@ -93,3 +93,11 @@ V(g)$name <- c("Course", "Major", "Minor", "PEAK", "Component", "Instructor")
 
 plot(g, layout=layout.fruchterman.reingold)
 ```
+
+# Additional "Course Nodes"
+
+Besides catalog courses, there are several non-course "course" nodes that will need to be added for prerequisite and major/minor requirements.
+
+* "Instructor Permission"
+* "Senior Standing"
+* "Junior or Senior Standing"
