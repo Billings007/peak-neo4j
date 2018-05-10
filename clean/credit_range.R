@@ -2,6 +2,14 @@
 library(dplyr)
 library(stringr)
 
+########################################
+#credit_range
+#
+#takes a string of the form "n credits"
+#or "1-3 credits" and returns a DF with
+#columns "min_credits" and "max_credits"
+########################################
+
 credit_range <- function(cred_string){
   #remove "credit" or "credits"
   cred_num <- str_split(cred_string, "[:blank:]", simplify=TRUE)[1]
