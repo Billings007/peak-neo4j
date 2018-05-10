@@ -30,7 +30,7 @@ output: html_document
  *  id: an internally used identifier, usually combination of subject and number
  *  subject: the three letter subject code from the catalog
  *  number: the three digit course number
- *  lab: Either "L" or blank, depending on lab version (PHY-221 or PHY-221L)
+ *  url: link to catalog course entry
  *  name: official course name
  *  description: catalog description
  *  minCredits: number
