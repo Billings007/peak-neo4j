@@ -1,0 +1,20 @@
+name, type
+Core, major_component
+senior-level, major_component
+elective, major_component
+Calculus, major_component
+Intermediate, major_component
+Advanced, major_component
+Capstone, major_component
+Upper, major_component
+Independent Study, major_component
+Proofs, major_component
+programming, minor_component
+Calculus, minor_component
+Data, minor_component
+Lab, minor_component
+Proofs, minor_component
+upper elective, minor_component
+math, minor_component
+physics, minor_component
+advanced, minor_component

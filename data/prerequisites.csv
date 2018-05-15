@@ -12,8 +12,8 @@ MAT,361,CSC,455,required
 CSC,160,CSC,350,required
 MAT,252,CSC,350,required
 CSC,235,CSC,480,required
-CSC,270,CSC,480,co-req
-CSC,350,CSC,480,co-req
+CSC,270,CSC,480,required
+CSC,350,CSC,480,required
 CSC,480,CSC,481,required
 CSC,152,CSC,340,required
 MAT,101,MAT,111,optionP
@@ -22,8 +22,8 @@ MAT,101,MAT,125,optionP
 MAT,102,MAT,130,optionP
 MAT,150,MAT,130,optionP
 MAT,102,MAT,150,optionP
-MAT,150,MAT,175,option
-MAT,130,MAT,175,option
+MAT,150,MAT,175,option2
+MAT,130,MAT,175,option2
 MAT,125,MAT,212,option1
 MAT,175,MAT,212,option1
 MAT,275,MAT,212,option1
