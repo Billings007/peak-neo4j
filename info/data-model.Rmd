@@ -11,7 +11,7 @@ output: html_document
  *  Major
  *  Minor
  *  PEAK
- *  Component: This is a sub-unit of a major of minor in which several courses could be used to satisfy a requirement. 
+ *  Component - This is a sub-unit of a major of minor in which several courses could be used to satisfy a requirement. 
  *  Instructor
  
 # Relationship Types
@@ -21,21 +21,21 @@ output: html_document
  *  Option
  *  Satisfies
  *  Taught_By
- *  Contact: primary faculty member for questions about major, minor, course.
+ *  Contact - primary faculty member for questions about major, minor, course.
  
- # Node Properties
+# Node Properties
  
- ## Courses
+## Courses
  
- *  id: an internally used identifier, usually combination of subject and number
- *  subject: the three letter subject code from the catalog
- *  number: the three digit course number
- *  url: link to catalog course entry
- *  name: official course name
- *  description: catalog description
- *  minCredits: number
- *  maxCredits: number, most courses have minCredits==maxCredits
- *  frequency: code for how often the course is taught as follows
+  *  id: an internally used identifier, usually combination of subject and number
+  *  subject: the three letter subject code from the catalog
+  *  number: the three digit course number
+  *  url: link to catalog course entry
+  *  name: official course name
+  *  description: catalog description
+  *  minCredits: number
+  *  maxCredits: number, most courses have minCredits==maxCredits
+  *  frequency: code for how often the course is taught as follows
 
     **  FS: every fall and spring
     **  ALL: every Fal, Winter, Spring
