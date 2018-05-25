@@ -1,6 +1,6 @@
-name, type
-Math Core, major_component
-Math-Physics Core
+name, major
+Core, Mathematics
+Core, Math/Physics
 senior-level, major_component
 elective, major_component
 Calculus, major_component
