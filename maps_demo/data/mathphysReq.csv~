@@ -1,0 +1,13 @@
+course, component, type
+MAT175, Core, required
+MAT275, Core, required
+CSC150, Core, required
+PHY271, Core, required
+PHY271L, Core, required
+Colloquium, Core, required
+PHY301, Upper-Physics, option
+PHY313, Upper-Physics, option
+PHY330, Upper-Physics, option
+PHY400, Upper-Physics, option
+MAT311, Elective, option
+MAT312, Elective, option

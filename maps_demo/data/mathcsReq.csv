@@ -1,0 +1,22 @@
+course,component, type
+CSC150, Core, required
+CSC152, Core, required
+CSC160, Core, required
+CSC235, Core, required
+Proofs, Core, required
+SPE101, Core, required
+MAT175, Calculus, option
+MAT275, Calculus, option
+CSC270, Intermediate, required
+CSC340, Intermediate, required
+MAT252, Intermediate, required
+MAT361, Intermediate, required
+PHY230, Intermediate, required
+PHY230L, Intermediate, required
+CSC350, Advanced, option
+CSC455, Advanced, option
+CSC497, Advanced, option
+CSC490, Topics, required
+CSC480, Capstone, required
+CSC481, Capstone, required
+CSC482, Capstone, required
