@@ -1,0 +1,26 @@
+course,minor,type,other
+MAT150,Computer Science,option,MAT175
+MAT175,Computer Science,option,MAT150
+MAT252,Computer Science,required,
+CSC150,Computer Science,required,
+CSC160,Computer Science,required,
+CSC270,Computer Science,required,
+CSC235,Computer Science,option,CSC340
+CSC340,Computer Science,option,CSC235
+MAT150,Computer Studies,option,MAT175
+MAT175,Computer Studies,option,MAT150
+CSC150,Computer Studies,required,
+CSC270,Computer Studies,required,
+BIO159,Computer Studies,option,LAB
+BIO201,Computer Studies,option,LAB
+BIO202,Computer Studies,option,LAB
+BIO210,Computer Studies,option,LAB
+CHE141,Computer Studies,option,LAB
+CHE142,Computer Studies,option,LAB
+ENV160,Computer Studies,option,LAB
+PHY231,Computer Studies,option,LAB
+PHY232,Computer Studies,option,LAB
+PHY271,Computer Studies,option,LAB
+PHY272,Computer Studies,option,LAB
+GEO101,Computer Studies,option,LAB
+
