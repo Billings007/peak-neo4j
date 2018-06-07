@@ -1,0 +1,5 @@
+LOAD CSV WITH HEADERS FROM 'file:///maps_course_nodes.csv' AS course CREATE (:Course {name:course.name, id:course.id,url:course.url,description:course.description, number:course.number, subject:course.sub, minCredits:course.min_credits, maxCredits:course.max_credits})
+
+LOAD CSV WITH HEADERS FROM 'file:///majors.csv' AS major CREATE (:Major {name:major.name})
+
+LOAD CSV WITH HEADERS FROM 'file:///majComp-math.csv' AS mc CREATE (:Component {name:mc.name})LOAD CSV WITH HEADERS FROM 'file:///majComp-math.csv' AS mc CREATE (:Component {name:mc.name})

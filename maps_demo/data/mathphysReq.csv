@@ -1,32 +1,32 @@
-course, component, type
-MAT175, Core, required
-MAT275, Core, required
-CSC150, Core, required
-PHY271, Core, required
-PHY271L, Core, required
-Colloquium, Core, required
-PHY301, Upper-Physics, option
-PHY313, Upper-Physics, option
-PHY330, Upper-Physics, option
-PHY400, Upper-Physics, option
-MAT311, Elective, option
-MAT312, Elective, option
-MAT352, Elective, option
-MAT361, Elective, option
-MAT370, Elective, option
-MAT372, Elective, option
-MAT399T, Elective, option
-MAT431, Elective, option
-MAT441, Elective, option
-MAT451, Elective, option
-MAT461, Elective, option
-PHY301, Elective, option
-PHY313, Elective, option
-PHY330, Elective, option
-PHY399T, Elective, option
-PHY400, Elective, option
-PHY450, Elective, option
-MAT494, Independent-Study, option
-MAT497, Independent-Study, option
-PHY494, Independent-Study, option
-PHY497, Independent-Study, option
+course,component,type
+MAT175,Core,required
+MAT275,Core,required
+CSC150,Core,required
+PHY271,Core,required
+PHY271L,Core,required
+Colloquium,Core,required
+PHY301,Upper-Physics,option
+PHY313,Upper-Physics,option
+PHY330,Upper-Physics,option
+PHY400,Upper-Physics,option
+MAT311,Elective,option
+MAT312,Elective,option
+MAT352,Elective,option
+MAT361,Elective,option
+MAT370,Elective,option
+MAT372,Elective,option
+MAT399T,Elective,option
+MAT431,Elective,option
+MAT441,Elective,option
+MAT451,Elective,option
+MAT461,Elective,option
+PHY301,Elective,option
+PHY313,Elective,option
+PHY330,Elective,option
+PHY399T,Elective,option
+PHY400,Elective,option
+PHY450,Elective,option
+MAT494,Independent-Study,option
+MAT497,Independent-Study,option
+PHY494,Independent-Study,option
+PHY497,Independent-Study,option
