@@ -1,0 +1,40 @@
+---
+title: "Maps Minors Historical Data"
+author: "Jason Preszler"
+date: "June 8, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+
+####### ORIGINAL CLEANING CODE ###################
+#
+# Commented to aviod including senesitive data in public git repo
+
+#minor.data.MH <- read.csv("~/github-web/minor-data-MH.csv")
+#minor.data.MH <- select(minor.data.MH, -c(ID,Last.Name, First.Name, Acad.Level, Grad.Date, Grad.Term)) %>% filter(Grad.Year > 2010)
+#minorSplit <- separate(minor.data.MH, Major.1.Major.2.Major.3, into = c("Major1","Major2"), sep = ",")
+#minorSplit <- separate(minorSplit, Minor.1.Minor.2.Minor.3, into = c("Minor1","Minor2","Minor3"), sep = ",")
+#write.csv(minorSplit, file="maps-minor-historical-cleaned.csv", row.names=FALSE)
+
+minorHist <- read.csv("~/github-web/peak-neo4j/maps-minor-historical-cleaned.csv", header = TRUE) %>% mutate(id = 1:length(Grad.Year))
+
+#remove leading and trailing whitespace on factor vars
+minorHistC <-  map_dfc(select_if(minorHist, is.factor), function(x) str_trim(x, side = "both"))
+minorHistC$Grad.Year <- minorHist$Grad.Year
+minorHistC$id <- minorHist$id
+
+#reshape along both majors and minors for counting/graphing 
+mhLong <- gather(minorHistC, key=minorNum, value = minor, -c(id,Grad.Year,Degree, Major1,Major2,Concentration)) %>% filter(!is.na(minor)) %>% gather(key=majorNum, value=major, -c(id,Grad.Year,Degree,Concentration,minorNum,minor)) %>% filter(!is.na(major))
+
+#minors in maps
+mm <- c("CSC","CSD","MAT","MATAP","PHY","GEOSC", "PHSCI", "DUENG")
+```
+
