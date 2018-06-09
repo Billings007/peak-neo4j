@@ -1,5 +1,5 @@
 ---
-title: "Maps Minors Historical Data"
+title: "MAPS Minors Historical Data"
 author: "Jason Preszler"
 date: "June 8, 2018"
 output: html_document
@@ -13,6 +13,13 @@ library(purrr)
 library(stringr)
 library(ggplot2)
 library(knitr)
+library(kableExtra)
+
+my_kable <- function(df){
+  kable(df,"html") %>% 
+    kable_styling( bootstrap_options = 
+          c("striped", "hover","condensed", "responsive"), full_width=FALSE) 
+}
 
 ####### ORIGINAL CLEANING CODE ###################
 #
@@ -36,5 +43,39 @@ mhLong <- gather(minorHistC, key=minorNum, value = minor, -c(id,Grad.Year,Degree
 
 #minors in maps
 mm <- c("CSC","CSD","MAT","MATAP","PHY","GEOSC", "PHSCI", "DUENG")
+mmNames <- c("Computer Science", "Computer Studies", "Mathematics", "Applied Math.", "Physics", "Geoscience", "Physical Science", "Dual-Degree Engineering")
+mmPeak <- c("NSM","PSE","NSM","NSM","NSM","NSM","NSM","NSM and PSE")
+
+mmDF <- data.frame(code = mm, name=mmNames, peak=mmPeak) %>% arrange(mm)
 ```
 
+The purpose of this document is to investigate historical trends of minors within the MAPS department and see if there are relationships with certain majors. We focus on *Graduation Years* 2011-2017, and it should be noted that the graduation year is often one year earlier than their "class year" since, for example, a graduation year of 2017 includes students receiving degrees in Summer or Fall of 2017 and Spring of 2018. 
+
+The following table gives the minor codes (used by the registrar and institutional research), names, and peaks satisfied for each minor. Throughout this document we will primarily use the codes to refer to each minor.
+
+```{r mmTab, echo=FALSE}
+my_kable(mmDF)
+```
+
+## Data Acquisition and Preparation
+The data used was provided by the Registrar and Director of Institutional Research, Mark Heidrich. It includes all students with graduation year 2011 or later who minored in at least one of the above MAPS minors. The original dataset included some students from earlier, pre-PEAK, years who have been removed. Identifying information including name and ID number have been removed, as have additional variables of graduation date, graduation term, and "Academic Level" which was *UG* for all students. A generic ID was added to to connect the multiple minors and majors together (as a single student) when reshaping data but this has no connection to the student ID. Leading and trailing whitespace from all non-numeric variables was also removed which was necessary since some minor codes has leading spaces during earlier years.
+
+## Overview of Data
+The data shows that the `r length(minorHistC$Degree)` students received `r length(unique(mhLong$minor))` different minors and `r length(unique(mhLong$major))` different majors. Of these students, `r sum(minorHistC$Degree=="BS")` received a *BS* while the remaining  `r sum(minorHistC$Degree=="BA")` received a *BA*.
+
+## Minor Counts over Time
+First we look at the overall count of students received any MAPS minor, then we see how those counts are spread over time.
+
+```{r minorCnts, echo=FALSE}
+filter(mhLong, minor %in% mm) %>% group_by(minor) %>% summarise(count = n()) %>% my_kable()
+
+xtabs(~minor+Grad.Year, data=filter(mhLong, minor %in% mm)) %>% my_kable() 
+```
+
+```{r minorGraph, echo=FALSE}
+filter(mhLong, minor %in% mm) %>% group_by(Grad.Year,minor) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=minor)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw() 
+```
+
+## Minor Combinations
+
+## Major-Minor Associations
