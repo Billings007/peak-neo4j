@@ -58,7 +58,7 @@ my_kable(mmDF)
 ```
 
 ## Data Acquisition and Preparation
-The data used was provided by the Registrar and Director of Institutional Research, Mark Heidrich. It includes all students with graduation year 2011 or later who minored in at least one of the above MAPS minors. The original dataset included some students from earlier, pre-PEAK, years who have been removed. Identifying information including name and ID number have been removed, as have additional variables of graduation date, graduation term, and "Academic Level" which was *UG* for all students. A generic ID was added to to connect the multiple minors and majors together (as a single student) when reshaping data but this has no connection to the student ID. Leading and trailing whitespace from all non-numeric variables was also removed which was necessary since some minor codes has leading spaces during earlier years.
+The data used was provided by the Registrar and Director of Institutional Research, Mark Heidrich. It includes all students with graduation year 2011 or later who minored in at least one of the above MAPS minors. The original dataset included some students from earlier, pre-PEAK, years who have been removed. Identifying information including name and ID number have been removed, as have additional variables of graduation date, graduation term, and "Academic Level" which was *UG* for all students. A generic ID was added to to connect the multiple minors and majors together (as a single student) when reshaping data but this has no connection to the student ID. Leading and trailing white-space from all non-numeric variables was also removed which was necessary since some minor codes has leading spaces during earlier years.
 
 ## Overview of Data
 The data shows that the `r length(minorHistC$Degree)` students received `r length(unique(mhLong$minor))` different minors and `r length(unique(mhLong$major))` different majors. Of these students, `r sum(minorHistC$Degree=="BS")` received a *BS* while the remaining  `r sum(minorHistC$Degree=="BA")` received a *BA*.
@@ -73,25 +73,33 @@ xtabs(~minor+Grad.Year, data=filter(mhLong, minor %in% mm)) %>% my_kable()
 ```
 
 ```{r minorGraph, echo=FALSE}
-filter(mhLong, minor %in% mm) %>% group_by(Grad.Year,minor) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=minor)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw() 
+filter(mhLong, minor %in% mm) %>% group_by(Grad.Year,minor) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=minor)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw()+ggtitle("MAPS Minor Counts, Graduation Years 2011-2017")
 ```
 
 ## Minor Combinations
 The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn.
 ```{r minorComb, echo=FALSE}
-mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor"))#there are 8 students with 2 maps minors - need to deal with this
+mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") #there are 2 students with 2 maps minors - need to deal with this, but double counting double majors has been removed
 amc <- function(x) {
   mid <- filter(mhlW,minor==x) %>% select(id) 
   return(
     filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>%
       mutate(maps_minor=x) %>% group_by(maps_minor, minor) %>% 
-      summarise(cnt=n()) %>% arrange(desc(cnt))
+      summarise(count=n()) %>% arrange(desc(count))
   )
 }
 
 my_kable(map_dfr(mm,amc)) %>% scroll_box(width = "75%", height = "300px")
 ```
 
-Notice that for every MAPS minor, **Psychology** is either the first or second most popular additional minor.
+Notice that for every MAPS minor, **Psychology** is either the first or second most popular additional minor. Since psychology is a very popular major, this may indicate that among non-psychology majors minoring in psychology is very popular.
 
 ## Major-Minor Associations
+Only `r sum(!is.na(minorHistC$Major2))` students have a second major, so we ignore these majors for this report (this may be worth looking into in the near future though). Below we have a table of the minors in MAPS and majors with more than 3 students earning that major/minor combination. 
+
+```{r majorAssoc, echo=FALSE}
+mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") 
+mhlW %>% filter(minorNum=="Minor1") %>% group_by(minor, major) %>% summarise(count=n()) %>% arrange(desc(count)) %>% filter(count>3) %>% my_kable() 
+```
+
+The students minoring in Dual-Degree Engineering are *encouraged* to major or mathematics or math/physics and must be accepted to an approved engineering program, hence the high incidence of math/physics majors. As expected, there are also many students majoring in MAPS or Chemistry and using the CSC minor to satisfy the PSE PEAK. Besides these relationships within NSM, the most common majors earning minors within MAPS are business, psychology, and POE which are three of the most popular non-NSM majors at the College of Idaho.
