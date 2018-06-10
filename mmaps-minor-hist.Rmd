@@ -44,7 +44,7 @@ mhLong <- gather(minorHistC, key=minorNum, value = minor, -c(id,Grad.Year,Degree
 #minors in maps
 mm <- c("CSC","CSD","MAT","MATAP","PHY","GEOSC", "PHSCI", "DUENG")
 mmNames <- c("Computer Science", "Computer Studies", "Mathematics", "Applied Math.", "Physics", "Geoscience", "Physical Science", "Dual-Degree Engineering")
-mmPeak <- c("NSM","PSE","NSM","NSM","NSM","NSM","NSM","NSM and PSE")
+mmPeak <- c("PSE","NSM","NSM","NSM","NSM","NSM","NSM","NSM and PSE")
 
 mmDF <- data.frame(code = mm, name=mmNames, peak=mmPeak) %>% arrange(mm)
 ```
@@ -77,12 +77,21 @@ filter(mhLong, minor %in% mm) %>% group_by(Grad.Year,minor) %>% summarise(count 
 ```
 
 ## Minor Combinations
-```{r minorComb}
-mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor"))
-amc <- function(x) {mid <- filter(mhlW,minor==x) %>% select(id) return(filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>% group_by(minor) %>% summarise(cnt=n()))
+The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn.
+```{r minorComb, echo=FALSE}
+mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor"))#there are 8 students with 2 maps minors - need to deal with this
+amc <- function(x) {
+  mid <- filter(mhlW,minor==x) %>% select(id) 
+  return(
+    filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>%
+      mutate(maps_minor=x) %>% group_by(maps_minor, minor) %>% 
+      summarise(cnt=n()) %>% arrange(desc(cnt))
+  )
 }
-# amc("MAT")
 
+my_kable(map_dfr(mm,amc)) %>% scroll_box(width = "75%", height = "300px")
 ```
+
+Notice that for every MAPS minor, **Psychology** is either the first or second most popular additional minor.
 
 ## Major-Minor Associations
