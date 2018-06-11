@@ -57,6 +57,7 @@ The following table gives the minor codes (used by the registrar and institution
 my_kable(mmDF)
 ```
 
+If this seems like a long list, you're right. The current catalog (2017-2018) lists 15 NSM minors, half of which are associated to the MAPS department (though MAPS is a bit of a hodge-podge department including Math, Computer Science, Physics, and Geology/Environmental Science faculty). Other peaks have similar numbers of minors - 16 in HFA (4 or which can count as SSH), 14 in SSH (again 4 are duplicated), and 18 in PSE. 
 ## Data Acquisition and Preparation
 The data used was provided by the Registrar and Director of Institutional Research, Mark Heidrich. It includes all students with graduation year 2011 or later who minored in at least one of the above MAPS minors. The original dataset included some students from earlier, pre-PEAK, years who have been removed. Identifying information including name and ID number have been removed, as have additional variables of graduation date, graduation term, and "Academic Level" which was *UG* for all students. A generic ID was added to to connect the multiple minors and majors together (as a single student) when reshaping data but this has no connection to the student ID. Leading and trailing white-space from all non-numeric variables was also removed which was necessary since some minor codes has leading spaces during earlier years.
 
@@ -72,12 +73,15 @@ filter(mhLong, minor %in% mm) %>% group_by(minor) %>% summarise(count = n()) %>%
 xtabs(~minor+Grad.Year, data=filter(mhLong, minor %in% mm)) %>% my_kable() 
 ```
 
+Notice that *Geosciences* isn't listed since no students have graduated with this minor yet.
+
 ```{r minorGraph, echo=FALSE}
 filter(mhLong, minor %in% mm) %>% group_by(Grad.Year,minor) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=minor)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw()+ggtitle("MAPS Minor Counts, Graduation Years 2011-2017")
 ```
 
 ## Minor Combinations
-The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn.
+The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn. Only minor combinations with more than 2 students are listed. 
+
 ```{r minorComb, echo=FALSE}
 mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") #there are 2 students with 2 maps minors - need to deal with this, but double counting double majors has been removed
 amc <- function(x) {
@@ -85,7 +89,7 @@ amc <- function(x) {
   return(
     filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>%
       mutate(maps_minor=x) %>% group_by(maps_minor, minor) %>% 
-      summarise(count=n()) %>% arrange(desc(count))
+      summarise(count=n()) %>% filter(count>2) %>% arrange(desc(count))
   )
 }
 
