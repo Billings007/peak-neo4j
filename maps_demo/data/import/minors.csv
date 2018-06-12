@@ -1,16 +1,16 @@
 course,minor,type,other
 MAT150,Computer Science,option,MAT175
 MAT175,Computer Science,option,MAT150
-MAT252,Computer Science,required,
-CSC150,Computer Science,required,
-CSC160,Computer Science,required,
-CSC270,Computer Science,required,
+MAT252,Computer Science,required,req
+CSC150,Computer Science,required,req
+CSC160,Computer Science,required,req
+CSC270,Computer Science,required,req
 CSC235,Computer Science,option,CSC340
 CSC340,Computer Science,option,CSC235
 MAT150,Computer Studies,option,MAT175
 MAT175,Computer Studies,option,MAT150
-CSC150,Computer Studies,required,
-CSC270,Computer Studies,required,
+CSC150,Computer Studies,required,req
+CSC270,Computer Studies,required,req
 BIO159,Computer Studies,option,LAB
 BIO201,Computer Studies,option,LAB
 BIO202,Computer Studies,option,LAB
@@ -56,13 +56,13 @@ MAT494,Mathematics,option,sixCredits
 MAT497,Mathematics,option,sixCredits
 MAT498,Mathematics,option,sixCredits
 MAT499T,Mathematics,option,sixCredits
-MAT175,Physics,prerequisite,
-MAT275,Physics,prerequisite,
-MAT352,Physics,prerequisite,
-PHY271,Physics,required,
-PHY271L,Physics,required,
-PHY272,Physics,required,
-PHY272L,Physics,required,
+MAT175,Physics,prerequisite,req
+MAT275,Physics,prerequisite,req
+MAT352,Physics,prerequisite,req
+PHY271,Physics,required,req
+PHY271L,Physics,required,req
+PHY272,Physics,required,req
+PHY272L,Physics,required,req
 PHY100,Physics,option,threeCredit
 PHY105,Physics,option,threeCredit
 PHY170,Physics,option,threeCredit
@@ -100,7 +100,7 @@ PHY494,Physics,option,sixCredit
 PHY496,Physics,option,sixCredit
 PHY497,Physics,option,sixCredit
 PHY499T,Physics,option,sixCredit
-CSC150,Applied Math,required,
+CSC150,Applied Math,required,req
 MAT150,Applied Math,option,Calculus
 MAT175,Applied Math,option,Calculus
 MAT275,Applied Math,option,Calculus
@@ -118,7 +118,7 @@ PHY232,Applied Math,option,LAB
 PHY271,Applied Math,option,LAB
 PHY272,Applied Math,option,LAB
 GEO101,Applied Math,option,LAB
-GEO101,Geosciences,required,
+GEO101,Geosciences,required,req
 GEO150,Geosciences,option,ENV160
 ENV160,Geosciences,option,GEO150
 MAT125,Geosciences,option,Math
@@ -129,7 +129,7 @@ GEO320,Geosciences,option,takeTwo
 ENV350,Geosciences,option,takeTwo
 PHY231,Geosciences,option,takeTwo
 PHY271,Geosciences,option,takeTwo
-MAT150,Physical Science,required,
+MAT150,Physical Science,required,req
 CHE141,Physical Science,option,takeTwo
 CHE142,Physical Science,option,takeTwo
 PHY231,Physical Science,option,takeTwo

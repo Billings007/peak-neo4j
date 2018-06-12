@@ -1,8 +1,6 @@
-LOAD CSV WITH HEADERS FROM 'file:///maps_course_nodes.csv' AS course CREATE (:Course {name:course.name, id:course.id,url:course.url,description:course.description, number:course.number, subject:course.sub, minCredits:course.min_credits, maxCredits:course.max_credits})
+LOAD CSV WITH HEADERS FROM 'file:///maps_minor_course_nodes.csv' AS course CREATE (:Course {name:course.name, id:course.id,url:course.url,description:course.description, number:course.number, subject:course.sub, minCredits:course.min_credits, maxCredits:course.max_credits})
 
 CREATE INDEX ON :Course(id)
-
-LOAD CSV WITH HEADERS FROM 'file:///prerequisite.csv' AS pre MATCH (c:Course), (s:Course) WHERE c.id=pre.id1 AND s.id=pre.id2 CREATE (s)-[:Prerequisite]->(c)
 
 LOAD CSV WITH HEADERS FROM 'file:///majors.csv' AS major CREATE (:Major {name:major.name})
 
@@ -25,3 +23,6 @@ LOAD CSV WITH HEADERS FROM 'file:///mathcsReq.csv' AS mmr MERGE (c:Course {id:mm
 
 LOAD CSV WITH HEADERS FROM 'file:///mathphysReq.csv' AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component}) MERGE (c)-[s:Satifies {type:mmr.type}]->(mc)
 
+LOAD CSV WITH HEADERS FROM 'file:///minors.csv' AS minor MERGE (c:Course {id:minor.course}) MERGE (mc:Minor {name:minor.minor}) MERGE (c)-[s:Part_Of {type:minor.type, cluster:minor.other}]->(mc)
+
+LOAD CSV WITH HEADERS FROM 'file:///minorPrereq.csv' AS pre MATCH (c:Course), (s:Course) WHERE c.id=pre.id1 AND s.id=pre.id2 CREATE (s)-[:Prerequisite]->(c)
