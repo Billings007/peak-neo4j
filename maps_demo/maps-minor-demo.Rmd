@@ -1,0 +1,24 @@
+---
+title: "Maps Minors in Neo4J"
+author: "Jason Preszler"
+date: "June 12, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(knitr)
+library(ggplot2)
+library(igraph)
+
+devtools::install_github("nicolewhite/RNeo4j")
+library(RNeo4j)
+
+gdb <- graph("http://localhost:7474/db/data", user="neo4j", password = "maps") #only the password is DB specific here
+
+
+```
+
