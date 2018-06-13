@@ -1,14 +1,14 @@
 course,minor,type,other
-MAT150,Computer Science,option,MAT175
-MAT175,Computer Science,option,MAT150
+MAT150,Computer Science,option,Calculus
+MAT175,Computer Science,option,Calculus
 MAT252,Computer Science,required,req
 CSC150,Computer Science,required,req
 CSC160,Computer Science,required,req
 CSC270,Computer Science,required,req
-CSC235,Computer Science,option,CSC340
-CSC340,Computer Science,option,CSC235
-MAT150,Computer Studies,option,MAT175
-MAT175,Computer Studies,option,MAT150
+CSC235,Computer Science,option,IntermediateCSC
+CSC340,Computer Science,option,IntermediateCSC
+MAT150,Computer Studies,option,Calculus
+MAT175,Computer Studies,option,Calculus
 CSC150,Computer Studies,required,req
 CSC270,Computer Studies,required,req
 BIO159,Computer Studies,option,LAB
@@ -23,8 +23,8 @@ PHY232,Computer Studies,option,LAB
 PHY271,Computer Studies,option,LAB
 PHY272,Computer Studies,option,LAB
 GEO101,Computer Studies,option,LAB
-MAT175,Mathematics,option,MAT275
-MAT275,Mathematics,option,MAT175
+MAT175,Mathematics,option,Calculus
+MAT275,Mathematics,option,Calculus
 MAT280,Mathematics,option,Proofs
 MAT281,Mathematics,option,Proofs
 MAT282,Mathematics,option,Proofs
@@ -119,8 +119,8 @@ PHY271,Applied Math,option,LAB
 PHY272,Applied Math,option,LAB
 GEO101,Applied Math,option,LAB
 GEO101,Geosciences,required,req
-GEO150,Geosciences,option,ENV160
-ENV160,Geosciences,option,GEO150
+GEO150,Geosciences,option,Core
+ENV160,Geosciences,option,Core
 MAT125,Geosciences,option,Math
 MAT150,Geosciences,option,Math
 MAT212,Geosciences,option,Math

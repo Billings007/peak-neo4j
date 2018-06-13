@@ -17,8 +17,40 @@ library(igraph)
 devtools::install_github("nicolewhite/RNeo4j")
 library(RNeo4j)
 
-gdb <- graph("http://localhost:7474/db/data", user="neo4j", password = "maps") #only the password is DB specific here
+#data is already loaded into database using load-data.cypher
+gdb <- startGraph("http://localhost:7474/db/data", user="neo4j", password = "maps") #only the password is DB specific here
 
 
 ```
 
+## Basic Counting
+We'll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.
+
+```{r requiredCourse, echo=TRUE}
+query <- 'MATCH (c:Course)-[:Part_Of{type:"required"}]->(m:Minor) RETURN m.name, count(c), sum(toInt(c.minCredits))'
+gq <- cypher(gdb,query) %>% as.data.frame()
+names(gq) <- c("Minor","Number.Classes", "Credit.min")
+
+kable(arrange(gq, Minor, desc(Number.Classes)), caption = "Number of courses required for each minor")
+
+```
+
+Next we look at the number of "option groups" for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.
+
+```{r optGroups, echo=TRUE}
+query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name, p.cluster'
+gq <- cypher(gdb,query) %>% as.data.frame()
+names(gq) <- c("Minor","OptName")
+
+gq <- group_by(gq, Minor) %>% summarise(Number.Option.Groups = n_distinct(OptName))
+kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = "Number of Option Groups required for each minor")
+```
+
+```{r optCourse, echo=TRUE}
+query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name, p.cluster, count(c), sum(toInt(c.minCredits))'
+
+gq <- cypher(gdb,query) %>% as.data.frame()
+names(gq) <- c("Minor", "Option.Group", "Number.Classes", "Credit.min")
+
+kable(arrange(gq, Minor, Option.Group, desc(Number.Classes)), caption = "Number of courses for each option group of each minor")
+```
