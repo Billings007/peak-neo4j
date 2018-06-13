@@ -129,18 +129,18 @@ $(document).ready(function () {
 <div id="basic-counting" class="section level2">
 <h2>Basic Counting</h2>
 <p>We’ll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.</p>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[:Part_Of{type:&quot;required&quot;}]-&gt;(m:Minor) RETURN m.name, count(c), sum(toInt(c.minCredits))'
+<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[:Part_Of{type:&quot;required&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-names(gq) &lt;- c(&quot;Minor&quot;,&quot;Number.Classes&quot;, &quot;Credit.min&quot;)
+#names(gq) &lt;- c(&quot;Minor&quot;,&quot;Number.Classes&quot;, &quot;Credit.min&quot;)
 
-kable(arrange(gq, Minor, desc(Number.Classes)), caption = &quot;Number of courses required for each minor&quot;)</code></pre>
+kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses required for each minor&quot;)</code></pre>
 <table>
 <caption>Number of courses required for each minor</caption>
 <thead>
 <tr class="header">
 <th align="left">Minor</th>
-<th align="right">Number.Classes</th>
-<th align="right">Credit.min</th>
+<th align="right">NumberClasses</th>
+<th align="right">CreditMin</th>
 </tr>
 </thead>
 <tbody>
@@ -177,9 +177,9 @@ kable(arrange(gq, Minor, desc(Number.Classes)), caption = &quot;Number of course
 </tbody>
 </table>
 <p>Next we look at the number of “option groups” for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.</p>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name, p.cluster'
+<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptName'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-names(gq) &lt;- c(&quot;Minor&quot;,&quot;OptName&quot;)
+#names(gq) &lt;- c(&quot;Minor&quot;,&quot;OptName&quot;)
 
 gq &lt;- group_by(gq, Minor) %&gt;% summarise(Number.Option.Groups = n_distinct(OptName))
 kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of Option Groups required for each minor&quot;)</code></pre>
@@ -222,20 +222,20 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name, p.cluster, count(c), sum(toInt(c.minCredits))'
+<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-names(gq) &lt;- c(&quot;Minor&quot;, &quot;Option.Group&quot;, &quot;Number.Classes&quot;, &quot;Credit.min&quot;)
+#names(gq) &lt;- c(&quot;Minor&quot;, &quot;Option.Group&quot;, &quot;Number.Classes&quot;, &quot;Credit.min&quot;)
 
-kable(arrange(gq, Minor, Option.Group, desc(Number.Classes)), caption = &quot;Number of courses for each option group of each minor&quot;)</code></pre>
+kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Number of courses for each option group of each minor&quot;)</code></pre>
 <table>
 <caption>Number of courses for each option group of each minor</caption>
 <thead>
 <tr class="header">
 <th align="left">Minor</th>
-<th align="left">Option.Group</th>
-<th align="right">Number.Classes</th>
-<th align="right">Credit.min</th>
+<th align="left">OptionGroup</th>
+<th align="right">NumberClasses</th>
+<th align="right">CreditMin</th>
 </tr>
 </thead>
 <tbody>
