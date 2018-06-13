@@ -131,7 +131,6 @@ $(document).ready(function () {
 <p>We’ll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.</p>
 <pre class="r"><code>query &lt;- 'MATCH (c:Course)-[:Part_Of{type:&quot;required&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-#names(gq) &lt;- c(&quot;Minor&quot;,&quot;Number.Classes&quot;, &quot;Credit.min&quot;)
 
 kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses required for each minor&quot;)</code></pre>
 <table>
@@ -146,8 +145,8 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 <tbody>
 <tr class="odd">
 <td align="left">Applied Math</td>
-<td align="right">1</td>
-<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left">Computer Science</td>
@@ -156,8 +155,8 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 </tr>
 <tr class="odd">
 <td align="left">Computer Studies</td>
-<td align="right">2</td>
-<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">12</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
@@ -165,11 +164,16 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 <td align="right">3</td>
 </tr>
 <tr class="odd">
-<td align="left">Physical Science</td>
+<td align="left">Mathematics</td>
 <td align="right">1</td>
 <td align="right">4</td>
 </tr>
 <tr class="even">
+<td align="left">Physical Science</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
 <td align="left">Physics</td>
 <td align="right">4</td>
 <td align="right">16</td>
@@ -179,7 +183,6 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 <p>Next we look at the number of “option groups” for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.</p>
 <pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptName'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-#names(gq) &lt;- c(&quot;Minor&quot;,&quot;OptName&quot;)
 
 gq &lt;- group_by(gq, Minor) %&gt;% summarise(Number.Option.Groups = n_distinct(OptName))
 kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of Option Groups required for each minor&quot;)</code></pre>
@@ -194,23 +197,23 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 <tbody>
 <tr class="odd">
 <td align="left">Applied Math</td>
-<td align="right">3</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">Computer Science</td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">Computer Studies</td>
-<td align="right">3</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
-<td align="right">4</td>
+<td align="right">3</td>
 </tr>
 <tr class="odd">
 <td align="left">Mathematics</td>
-<td align="right">5</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">Physical Science</td>
@@ -225,7 +228,6 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 <pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
-#names(gq) &lt;- c(&quot;Minor&quot;, &quot;Option.Group&quot;, &quot;Number.Classes&quot;, &quot;Credit.min&quot;)
 
 kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Number of courses for each option group of each minor&quot;)</code></pre>
 <table>
@@ -252,64 +254,28 @@ kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Numb
 <td align="right">8</td>
 </tr>
 <tr class="odd">
-<td align="left">Applied Math</td>
-<td align="left">LAB</td>
-<td align="right">12</td>
-<td align="right">39</td>
+<td align="left">Computer Science</td>
+<td align="left">Calculus</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left">Computer Science</td>
-<td align="left">CSC235</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Computer Science</td>
-<td align="left">CSC340</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Computer Science</td>
-<td align="left">MAT150</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Computer Science</td>
-<td align="left">MAT175</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Computer Studies</td>
-<td align="left">LAB</td>
-<td align="right">12</td>
-<td align="right">39</td>
+<td align="left">IntermediateCSC</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left">Computer Studies</td>
-<td align="left">MAT150</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Computer Studies</td>
-<td align="left">MAT175</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Geosciences</td>
-<td align="left">ENV160</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<td align="left">Calculus</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
-<td align="left">GEO150</td>
-<td align="right">1</td>
-<td align="right">3</td>
+<td align="left">Core</td>
+<td align="right">2</td>
+<td align="right">6</td>
 </tr>
 <tr class="odd">
 <td align="left">Geosciences</td>
@@ -325,21 +291,9 @@ kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Numb
 </tr>
 <tr class="odd">
 <td align="left">Mathematics</td>
-<td align="left">LAB</td>
-<td align="right">12</td>
-<td align="right">39</td>
-</tr>
-<tr class="even">
-<td align="left">Mathematics</td>
-<td align="left">MAT175</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Mathematics</td>
-<td align="left">MAT275</td>
-<td align="right">1</td>
-<td align="right">4</td>
+<td align="left">Calculus</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left">Mathematics</td>

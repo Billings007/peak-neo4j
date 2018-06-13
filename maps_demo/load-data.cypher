@@ -27,6 +27,6 @@ LOAD CSV WITH HEADERS FROM 'file:///minor-no-lab.csv' AS minor MERGE (c:Course {
 
 CREATE (:Course{name:"Lab", desc: "Misc. Lab requirement for Applied Math, CSD, and Math minors", minCredits:4, maxCredit:4, id:"Lab"})
 
-MATCH (l:Course{id:"Lab"}), (m:Minor) WHERE m.name="Mathematics" | m.name="Applied Math" | m.name="Computer Studies" CREATE (l)-[:Part_Of{type:"required", cluster:"req"}]->(m)
+MATCH (l:Course{id:"Lab"}), (m:Minor) WHERE m.name="Mathematics" OR m.name="Applied Math" OR m.name="Computer Studies" CREATE (l)-[:Part_Of{type:"required", cluster:"req"}]->(m)
 
 LOAD CSV WITH HEADERS FROM 'file:///minorPrereq.csv' AS pre MATCH (c:Course), (s:Course) WHERE c.id=pre.id1 AND s.id=pre.id2 MERGE (s)-[:Prerequisite]->(c)

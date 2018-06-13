@@ -26,10 +26,9 @@ gdb <- startGraph("http://localhost:7474/db/data", user="neo4j", password = "map
 ## Basic Counting
 We'll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.
 
-```{r requiredCourse, echo=TRUE}
+```{r requiredCourse}
 query <- 'MATCH (c:Course)-[:Part_Of{type:"required"}]->(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 gq <- cypher(gdb,query) %>% as.data.frame()
-#names(gq) <- c("Minor","Number.Classes", "Credit.min")
 
 kable(arrange(gq, Minor, desc(NumberClasses)), caption = "Number of courses required for each minor")
 
@@ -37,20 +36,18 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = "Number of courses requ
 
 Next we look at the number of "option groups" for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.
 
-```{r optGroups, echo=TRUE}
+```{r optGroups}
 query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name AS Minor, p.cluster AS OptName'
 gq <- cypher(gdb,query) %>% as.data.frame()
-#names(gq) <- c("Minor","OptName")
 
 gq <- group_by(gq, Minor) %>% summarise(Number.Option.Groups = n_distinct(OptName))
 kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = "Number of Option Groups required for each minor")
 ```
 
-```{r optCourse, echo=TRUE}
+```{r optCourse}
 query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name AS Minor, p.cluster AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 
 gq <- cypher(gdb,query) %>% as.data.frame()
-#names(gq) <- c("Minor", "Option.Group", "Number.Classes", "Credit.min")
 
 kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = "Number of courses for each option group of each minor")
 ```
