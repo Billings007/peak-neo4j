@@ -23,6 +23,10 @@ LOAD CSV WITH HEADERS FROM 'file:///mathcsReq.csv' AS mmr MERGE (c:Course {id:mm
 
 LOAD CSV WITH HEADERS FROM 'file:///mathphysReq.csv' AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component}) MERGE (c)-[s:Satifies {type:mmr.type}]->(mc)
 
-LOAD CSV WITH HEADERS FROM 'file:///minors.csv' AS minor MERGE (c:Course {id:minor.course}) MERGE (mc:Minor {name:minor.minor}) MERGE (c)-[s:Part_Of {type:minor.type, cluster:minor.other}]->(mc)
+LOAD CSV WITH HEADERS FROM 'file:///minor-no-lab.csv' AS minor MERGE (c:Course {id:minor.course}) MERGE (mc:Minor {name:minor.minor}) MERGE (c)-[s:Part_Of {type:minor.type, cluster:minor.other}]->(mc)
 
-LOAD CSV WITH HEADERS FROM 'file:///minorPrereq.csv' AS pre MATCH (c:Course), (s:Course) WHERE c.id=pre.id1 AND s.id=pre.id2 CREATE (s)-[:Prerequisite]->(c)
+CREATE (:Course{name:"Lab", desc: "Misc. Lab requirement for Applied Math, CSD, and Math minors", minCredits:4, maxCredit:4, id:"Lab"})
+
+MATCH (l:Course{id:"Lab"}), (m:Minor) WHERE m.name="Mathematics" | m.name="Applied Math" | m.name="Computer Studies" CREATE (l)-[:Part_Of{type:"required", cluster:"req"}]->(m)
+
+LOAD CSV WITH HEADERS FROM 'file:///minorPrereq.csv' AS pre MATCH (c:Course), (s:Course) WHERE c.id=pre.id1 AND s.id=pre.id2 MERGE (s)-[:Prerequisite]->(c)
