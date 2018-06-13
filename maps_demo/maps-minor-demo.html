@@ -129,7 +129,7 @@ $(document).ready(function () {
 <div id="basic-counting" class="section level2">
 <h2>Basic Counting</h2>
 <p>We’ll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.</p>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[:Part_Of{type:&quot;required&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
+<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[:Satisfies{type:&quot;required&quot;}]-&gt;(mc:Component{name:&quot;req&quot;})-[:Part_Of]-&gt;(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
 
 kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses required for each minor&quot;)</code></pre>
@@ -145,8 +145,8 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 <tbody>
 <tr class="odd">
 <td align="left">Applied Math</td>
-<td align="right">2</td>
-<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left">Computer Science</td>
@@ -155,8 +155,8 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 </tr>
 <tr class="odd">
 <td align="left">Computer Studies</td>
-<td align="right">3</td>
-<td align="right">12</td>
+<td align="right">2</td>
+<td align="right">8</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
@@ -164,16 +164,11 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 <td align="right">3</td>
 </tr>
 <tr class="odd">
-<td align="left">Mathematics</td>
-<td align="right">1</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
 <td align="left">Physical Science</td>
 <td align="right">1</td>
 <td align="right">4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Physics</td>
 <td align="right">4</td>
 <td align="right">16</td>
@@ -181,7 +176,7 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = &quot;Number of courses
 </tbody>
 </table>
 <p>Next we look at the number of “option groups” for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.</p>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptName'
+<pre class="r"><code>query &lt;- 'MATCH (c:Component)-[p:Part_Of]-&gt;(m:Minor) WHERE c.name&lt;&gt;&quot;req&quot; RETURN m.name AS Minor, c.name AS OptName'
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
 
 gq &lt;- group_by(gq, Minor) %&gt;% summarise(Number.Option.Groups = n_distinct(OptName))
@@ -197,7 +192,7 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 <tbody>
 <tr class="odd">
 <td align="left">Applied Math</td>
-<td align="right">2</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">Computer Science</td>
@@ -205,7 +200,7 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 </tr>
 <tr class="odd">
 <td align="left">Computer Studies</td>
-<td align="right">1</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
@@ -213,7 +208,7 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 </tr>
 <tr class="odd">
 <td align="left">Mathematics</td>
-<td align="right">3</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left">Physical Science</td>
@@ -225,7 +220,7 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = &quot;Number of 
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[p:Part_Of{type:&quot;option&quot;}]-&gt;(m:Minor) RETURN m.name AS Minor, p.cluster AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
+<pre class="r"><code>query &lt;- 'MATCH (c:Course)-[s:Satisfies{type:&quot;option&quot;}]-&gt;(comp:Component)-[p:Part_Of]-&gt;(m:Minor) RETURN m.name AS Minor, comp.name AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 
 gq &lt;- cypher(gdb,query) %&gt;% as.data.frame()
 
@@ -254,22 +249,34 @@ kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Numb
 <td align="right">8</td>
 </tr>
 <tr class="odd">
+<td align="left">Applied Math</td>
+<td align="left">Lab</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
 <td align="left">Computer Science</td>
 <td align="left">Calculus</td>
 <td align="right">2</td>
 <td align="right">8</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Computer Science</td>
 <td align="left">IntermediateCSC</td>
 <td align="right">2</td>
 <td align="right">8</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Computer Studies</td>
 <td align="left">Calculus</td>
 <td align="right">2</td>
 <td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Computer Studies</td>
+<td align="left">Lab</td>
+<td align="right">1</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">Geosciences</td>
@@ -297,35 +304,41 @@ kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = &quot;Numb
 </tr>
 <tr class="even">
 <td align="left">Mathematics</td>
+<td align="left">Lab</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Mathematics</td>
 <td align="left">Proofs</td>
 <td align="right">4</td>
 <td align="right">16</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Mathematics</td>
 <td align="left">sixCredits</td>
 <td align="right">15</td>
 <td align="right">60</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Physical Science</td>
 <td align="left">takeTwo</td>
 <td align="right">10</td>
 <td align="right">40</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Physical Science</td>
 <td align="left">threeCredit</td>
 <td align="right">76</td>
 <td align="right">206</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Physics</td>
 <td align="left">sixCredit</td>
 <td align="right">10</td>
 <td align="right">40</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Physics</td>
 <td align="left">threeCredit</td>
 <td align="right">27</td>

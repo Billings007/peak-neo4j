@@ -27,7 +27,7 @@ gdb <- startGraph("http://localhost:7474/db/data", user="neo4j", password = "map
 We'll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.
 
 ```{r requiredCourse}
-query <- 'MATCH (c:Course)-[:Part_Of{type:"required"}]->(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
+query <- 'MATCH (c:Course)-[:Satisfies{type:"required"}]->(mc:Component{name:"req"})-[:Part_Of]->(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 gq <- cypher(gdb,query) %>% as.data.frame()
 
 kable(arrange(gq, Minor, desc(NumberClasses)), caption = "Number of courses required for each minor")
@@ -37,7 +37,7 @@ kable(arrange(gq, Minor, desc(NumberClasses)), caption = "Number of courses requ
 Next we look at the number of "option groups" for each minor. These are the number of groups of courses from which a selection of credits or courses must be completed. We then look at the number of courses and minimum credits available for each option group in each minor.
 
 ```{r optGroups}
-query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name AS Minor, p.cluster AS OptName'
+query <- 'MATCH (c:Component)-[p:Part_Of]->(m:Minor) WHERE c.name<>"req" RETURN m.name AS Minor, c.name AS OptName'
 gq <- cypher(gdb,query) %>% as.data.frame()
 
 gq <- group_by(gq, Minor) %>% summarise(Number.Option.Groups = n_distinct(OptName))
@@ -45,7 +45,7 @@ kable(arrange(gq, Minor, desc(Number.Option.Groups)), caption = "Number of Optio
 ```
 
 ```{r optCourse}
-query <- 'MATCH (c:Course)-[p:Part_Of{type:"option"}]->(m:Minor) RETURN m.name AS Minor, p.cluster AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
+query <- 'MATCH (c:Course)-[s:Satisfies{type:"option"}]->(comp:Component)-[p:Part_Of]->(m:Minor) RETURN m.name AS Minor, comp.name AS OptionGroup, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
 
 gq <- cypher(gdb,query) %>% as.data.frame()
 
