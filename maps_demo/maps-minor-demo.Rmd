@@ -51,3 +51,21 @@ gq <- cypher(gdb,query) %>% as.data.frame()
 
 kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = "Number of courses for each option group of each minor")
 ```
+
+## Visual
+```{r visNet}
+library(visNetwork)
+
+MinorNodeQ <- 'MATCH (m:Minor {name:"Applied Math"}) RETURN m.name AS id, m.name AS label, LABELS(m)[0] AS group'
+
+CourseNodeQ <- 'MATCH (m:Course)-[*]->(min:Minor{name:"Applied Math"}) RETURN m.id AS id, m.id AS label, LABELS(m)[0] AS group'
+
+nodes <- rbind.data.frame(cypher(gdb, MinorNodeQ), cypher(gdb, CourseNodeQ))
+nodes <- nodes[!duplicated(nodes),]
+
+edgeQ <- 'MATCH (c:Course)-[r*]->(m:Minor {name:"Applied Math"}) RETURN c.id AS from, m.name AS to, TYPE(r[0]) AS label'
+
+edges <- cypher(gdb, edgeQ)
+
+visNetwork(nodes, edges)
+```
