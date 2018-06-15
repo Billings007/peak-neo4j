@@ -24,7 +24,7 @@ gdb <- startGraph("http://localhost:7474/db/data", user="neo4j", password = "map
 ```
 
 ## Basic Counting
-We'll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor.
+We'll start with some basic counting of courses and minor structure. For each minor, we list the number of courses required by that minor. This count only includes specific courses required such as *MAT-175*, if the minor requires either *MAT-175* or *MAT-275* that is an option group (or component) counted later.
 
 ```{r requiredCourse}
 query <- 'MATCH (c:Course)-[:Satisfies{type:"required"}]->(mc:Component{name:"req"})-[:Part_Of]->(m:Minor) RETURN m.name AS Minor, count(c) AS NumberClasses, sum(toInt(c.minCredits)) AS CreditMin'
@@ -52,20 +52,63 @@ gq <- cypher(gdb,query) %>% as.data.frame()
 kable(arrange(gq, Minor, OptionGroup, desc(NumberClasses)), caption = "Number of courses for each option group of each minor")
 ```
 
-## Visual
-```{r visNet}
+# Minor Visuals
+
+```{r visNetFunction}
 library(visNetwork)
+minorVis <- function(minorName){
+  
+  MinorNodeQ <- paste0('MATCH (m:Minor {name:"',minorName,'"}) RETURN m.name AS id, m.name AS label, LABELS(m)[0] AS group')
 
-MinorNodeQ <- 'MATCH (m:Minor {name:"Applied Math"}) RETURN m.name AS id, m.name AS label, LABELS(m)[0] AS group'
+  ComponentNodeQ <- paste0('MATCH (c:Component)-[:Part_Of]->(m:Minor{name:"', minorName,'"}) RETURN c.name AS id, c.name AS label, LABELS(c)[0] AS group')
 
-CourseNodeQ <- 'MATCH (m:Course)-[*]->(min:Minor{name:"Applied Math"}) RETURN m.id AS id, m.id AS label, LABELS(m)[0] AS group'
+  CourseNodeQ <- paste0('MATCH (c:Course)-[:Satisfies]->(:Component)-[:Part_Of]->(m:Minor{name:"',minorName,'"}) RETURN c.id AS id, c.id AS label, LABELS(c)[0] AS group')
 
-nodes <- rbind.data.frame(cypher(gdb, MinorNodeQ), cypher(gdb, CourseNodeQ))
-nodes <- nodes[!duplicated(nodes),]
+  nodes <- rbind.data.frame(cypher(gdb, MinorNodeQ), cypher(gdb, CourseNodeQ))
+  nodes <- rbind.data.frame(nodes, cypher(gdb, ComponentNodeQ))
+  nodes <- nodes[!duplicated(nodes),]
 
-edgeQ <- 'MATCH (c:Course)-[r*]->(m:Minor {name:"Applied Math"}) RETURN c.id AS from, m.name AS to, TYPE(r[0]) AS label'
+  edgeSatQ <- paste0('MATCH (c:Course)-[r:Satisfies]->(co:Component)-[:Part_Of]->(m:Minor {name:"',minorName,'"}) RETURN c.id AS from, co.name AS to, TYPE(r) AS label')
 
-edges <- cypher(gdb, edgeQ)
+  edgePOQ <- paste0('MATCH (c:Component)-[r:Part_Of]->(m:Minor {name:"',minorName,'"}) RETURN c.name AS from, m.name AS to, TYPE(r) AS label')
 
-visNetwork(nodes, edges)
+  edges <- rbind.data.frame(cypher(gdb, edgeSatQ),cypher(gdb, edgePOQ))
+
+  visNetwork(nodes, edges)
+}
+```
+
+## Applied Math
+```{r amVis, echo=FALSE}
+minorVis("Applied Math")
+```
+
+## Computer Science
+```{r cscVis, echo=FALSE}
+minorVis("Computer Science")
+```
+
+## Computer Studies
+```{r csdVis, echo=FALSE}
+minorVis("Computer Studies")
+```
+
+## Geosciences
+```{r gVis, echo=FALSE}
+minorVis("Geosciences")
+```
+
+## Mathematics
+```{r mVis, echo=FALSE}
+minorVis("Mathematics")
+```
+
+## Physics
+```{r pVis, echo=FALSE}
+minorVis("Physics")
+```
+
+## Physical Science
+```{r psVis, echo=FALSE}
+minorVis("Physical Science")
 ```
