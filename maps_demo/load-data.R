@@ -22,13 +22,13 @@ q7<-'LOAD CSV WITH HEADERS FROM "file:///majComp-phys.csv" AS mc CREATE (:Compon
 
 q8<-'CREATE INDEX ON :Component(name)'
 
-q9<-'MATCH (c:Component), (m:Major) WHERE c.major=m.name CREATE (c)-[r:Part_Of]->(m)'
+q9<-'MATCH (c:Component), (m:Major) WHERE c.major=m.name MERGE (c)-[r:Part_Of]->(m)'
 
-q10<-'LOAD CSV WITH HEADERS FROM "file:///mathReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
+q10<-'LOAD CSV WITH HEADERS FROM "file:///mathReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component, major:"Mathematics"}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
 
-q11<-'LOAD CSV WITH HEADERS FROM "file:///mathcsReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
+q11<-'LOAD CSV WITH HEADERS FROM "file:///mathcsReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component, major:"Math/CS"}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
 
-q12<-'LOAD CSV WITH HEADERS FROM "file:///mathphysReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
+q12<-'LOAD CSV WITH HEADERS FROM "file:///mathphysReq.csv" AS mmr MERGE (c:Course {id:mmr.course}) MERGE (mc:Component {name:mmr.component, major:"Math/Physics"}) MERGE (c)-[s:Satisfies {type:mmr.type}]->(mc)'
 
 q13<-'LOAD CSV WITH HEADERS FROM "file:///minor-no-lab.csv" AS minor MERGE (c:Course {id:minor.course}) MERGE (m:Minor {name:minor.minor}) MERGE (cluster:Component {name:minor.other, minor:minor.minor}) MERGE (c)-[p:Satisfies {type:minor.type}]->(cluster) MERGE (cluster)-[s:Part_Of]->(m)'
 
@@ -42,7 +42,7 @@ q17<-'LOAD CSV WITH HEADERS FROM "file:///minorPrereq.csv" AS pre MATCH (c:Cours
 
 ## Execute Queries
 
-queries <- c(q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17)
+queries <- c(q1,q2,q3,q4,q5,q6,q7,q9,q10,q11,q12,q13,q14,q15,q16,q17) #removed q8 for now, major cores where being combined
 library(purrr)
 map(queries, function(x) cypher(gdb,x))
 
