@@ -13,10 +13,10 @@ base_html <- read_html(paste0(base_url,base_url_ext))
 subjectLinks <- html_nodes(base_html, 'a')
 #convert links to text
 subjectText <- html_text(subjectLinks)
-sub_url <- html_attr(subjectLinks, 'href')[78:120]
+sub_url <- html_attr(subjectLinks, 'href')[79:122]
 #pick out what corresponds to subject list
 #we now have subject codes and names
-subjectText <- subjectText[78:120]
+subjectText <- subjectText[79:122]
 
 subDF <- str_split(subjectText,pattern= '-', n=2, simplify=TRUE) %>% as.data.frame()
 names(subDF) <- c("sub", "subject")
