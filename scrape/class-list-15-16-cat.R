@@ -6,7 +6,7 @@ library(tidyr)
 
 #url for courses in catalog
 base_url <- "http://collegeofidaho.smartcatalogiq.com"
-base_url_ext <- "/en/current/Undergraduate-Catalog/Courses"
+base_url_ext <- "/2015-16/Undergraduate-Catalog/Courses"
 
 base_html <- read_html(paste0(base_url,base_url_ext))
 #extract links from base page
@@ -40,7 +40,7 @@ get_class_list <- function(i){
   
   #only keep links for classes, each subject has 
   #classes starting in a different position
-  classDF <- classDF %>% filter(str_detect(list, "[:upper:]{2,3}"))
+  classDF <- classDF %>% filter(str_detect(list, paste0(subDF$sub[i],'-')))
   #now build class dataframe with sub,number,name,url - we'll get the
   #other details on the next scrape
   
