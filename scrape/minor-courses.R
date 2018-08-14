@@ -26,9 +26,9 @@ minorDF <- mutate(minorDF, url=paste0(base_url,minor_url))
 
 
 get_class_list <- function(i){
-  if(i==12){
-    return(data.frame(Minor=minorDF$Minor[i], sub = "", num = "", url=""))
-  }
+ # if(i==12){
+  #  return(data.frame(Minor=minorDF$Minor[i], sub = "", num = "", url=""))
+  #}
   
   #get list of links on subject page
   class_links <- html_nodes(read_html(minorDF$url[i]), 'a')
@@ -53,7 +53,7 @@ get_class_list <- function(i){
   classDF <- mutate(classDF,url=paste0(base_url,url))
  
   #for test/debug 
-print(i)
+#print(i)
   return(classDF)
 }
 
