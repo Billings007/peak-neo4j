@@ -40,7 +40,7 @@ get_class_list <- function(i){
   
   #only keep links for classes, each subject has 
   #classes starting in a different position
-  classDF <- classDF %>% filter(str_detect(list, "[:upper:]{2,3}"))
+  classDF <- classDF %>% filter(str_detect(list, "[:upper:]{2,}-[:digit:]"))
   #now build class dataframe with sub,number,name,url - we'll get the
   #other details on the next scrape
   
