@@ -1,0 +1,94 @@
+---
+title: "MAPS Majors Historical Data"
+author: "Jason Preszler"
+date: "June 8, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(stringr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+
+my_kable <- function(df){
+  kable(df,"html") %>% 
+    kable_styling( bootstrap_options = 
+          c("striped", "hover","condensed", "responsive"), full_width=FALSE) 
+}
+
+#maj-min-cleaned.csv is from gitlab peak-nav, cleaning code there
+majorHist <- read.csv("maj-min-cleaned-2013.csv", header = TRUE) %>% mutate(id = 1:length(Grad.Year))
+
+#reshape along both majors and minors for counting/graphing 
+mhLong <- gather(majorHist, key=minorNum, value = minor, -c(id,Grad.Year, Major1,Major2,Major3)) %>% filter(!is.na(minor)) %>% gather(key=majorNum, value=major, -c(id,Grad.Year,minorNum,minor)) %>% filter(!is.na(major))
+
+#majors in maps
+mm <- c("MAT","MATPH","MATCS","MATPHD")
+mmNames <- c("Mathematics", "Math-Physics", "Math-CS", "Math-Physics Dual-Degree Engineering")
+
+mmDF <- data.frame(code = mm, name=mmNames) %>% arrange(mm)
+```
+
+The purpose of this document is to investigate historical trends of majors within the MAPS department and see if there are relationships with certain majors. We focus on *Graduation Years* 2011-2017, and it should be noted that the graduation year is often one year earlier than their "class year" since, for example, a graduation year of 2017 includes students receiving degrees in Summer or Fall of 2017 and Spring of 2018. 
+
+The following table gives the major codes (used by the registrar and institutional research) an names for each major. Throughout this document we will primarily use the codes to refer to each major.
+
+```{r mmTab, echo=FALSE}
+my_kable(mmDF)
+```
+
+The current catalog (2018-2019) lists 10 NSM majors. Other peaks have similar numbers of majors - 12 in HFA, 7 in SSH, and 6 in PSE. 
+
+## Data Acquisition and Preparation
+The data was provided by the Registrar and Director of Institutional Research. It includes all students with graduation year 2013 or later. The original dataset included some students from earlier, pre-PEAK, years who have been removed. Identifying information including name and ID number have been removed, as have additional variables of graduation date, graduation term, degree (BA or BS), and "Concentration". A generic ID was added to to connect the multiple minors and majors together (as a single student) when reshaping data but this has no connection to the student ID. Leading and trailing white-space from all non-numeric variables was also removed which was necessary since some minor codes has leading spaces during earlier years.
+
+## Overview of Data
+The data shows that the `r length(majorHist$id)` students received `r length(unique(mhLong$minor))` different minors and `r length(unique(mhLong$major))` different majors. 
+
+## Major Counts over Time
+First we look at the overall count of students received any MAPS major, then we see how those counts are spread over time.
+
+```{r majorCnts, echo=FALSE}
+filter(mhLong, major %in% mm) %>% group_by(major) %>% summarise(count = n()) %>% my_kable()
+
+xtabs(~major+Grad.Year, data=filter(mhLong, major %in% mm)) %>% my_kable() 
+```
+
+
+```{r minorGraph, echo=FALSE}
+filter(mhLong, major %in% mm) %>% group_by(Grad.Year,major) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=major)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw()+ggtitle("MAPS Major Counts, Graduation Years 2013-2017")
+```
+
+## Minor Combinations
+The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn. Only minor combinations with more than 2 students are listed. 
+
+```{r minorComb, echo=FALSE}
+mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") #there are 2 students with 2 maps minors - need to deal with this, but double counting double majors has been removed
+amc <- function(x) {
+  mid <- filter(mhlW,minor==x) %>% select(id) 
+  return(
+    filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>%
+      mutate(maps_minor=x) %>% group_by(maps_minor, minor) %>% 
+      summarise(count=n()) %>% filter(count>2) %>% arrange(desc(count))
+  )
+}
+
+my_kable(map_dfr(mm,amc)) %>% scroll_box(width = "75%", height = "300px")
+```
+
+Notice that for every MAPS minor, **Psychology** is either the first or second most popular additional minor. Since psychology is a very popular major, this may indicate that among non-psychology majors minoring in psychology is very popular.
+
+## Major-Minor Associations
+Only `r sum(!is.na(majorHist$Major2))` students have a second major, so we ignore these majors for this report (this may be worth looking into in the near future though). Below we have a table of the minors in MAPS and majors with more than 3 students earning that major/minor combination. 
+
+```{r majorAssoc, echo=FALSE}
+mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") 
+mhlW %>% filter(minorNum=="Minor1") %>% group_by(minor, major) %>% summarise(count=n()) %>% arrange(desc(count)) %>% filter(count>3) %>% my_kable() 
+```
+
+The students minoring in Dual-Degree Engineering are *encouraged* to major or mathematics or math/physics and must be accepted to an approved engineering program, hence the high incidence of math/physics majors. As expected, there are also many students majoring in MAPS or Chemistry and using the CSC minor to satisfy the PSE PEAK. Besides these relationships within NSM, the most common majors earning minors within MAPS are business, psychology, and POE which are three of the most popular non-NSM majors at the College of Idaho.
