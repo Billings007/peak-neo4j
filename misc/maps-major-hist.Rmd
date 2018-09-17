@@ -1,7 +1,7 @@
 ---
 title: "MAPS Majors Historical Data"
 author: "Jason Preszler"
-date: "June 8, 2018"
+date: "September 16, 2018"
 output: html_document
 ---
 
@@ -28,8 +28,8 @@ majorHist <- read.csv("maj-min-cleaned-2013.csv", header = TRUE) %>% mutate(id =
 mhLong <- gather(majorHist, key=minorNum, value = minor, -c(id,Grad.Year, Major1,Major2,Major3)) %>% filter(!is.na(minor)) %>% gather(key=majorNum, value=major, -c(id,Grad.Year,minorNum,minor)) %>% filter(!is.na(major))
 
 #majors in maps
-mm <- c("MAT","MATPH","MATCS","MATPHD")
-mmNames <- c("Mathematics", "Math-Physics", "Math-CS", "Math-Physics Dual-Degree Engineering")
+mm <- c("MAT","MATPH","MATCS","MAPHD")
+mmNames <- c("Mathematics", "Math-Physics", "Math-CS", "Math-Physics ???")
 
 mmDF <- data.frame(code = mm, name=mmNames) %>% arrange(mm)
 ```
@@ -64,31 +64,33 @@ xtabs(~major+Grad.Year, data=filter(mhLong, major %in% mm)) %>% my_kable()
 filter(mhLong, major %in% mm) %>% group_by(Grad.Year,major) %>% summarise(count = n()) %>% ggplot(aes(x=Grad.Year, y=count, col=major)) + scale_color_manual(values = c("#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00","#ffff33","#a65628","#f781bf"))+ geom_line()+theme_bw()+ggtitle("MAPS Major Counts, Graduation Years 2013-2017")
 ```
 
-## Minor Combinations
-The next table shows the count of students receiving minors outside MAPS for each of the MAPS minors that they earn. Only minor combinations with more than 2 students are listed. 
-
-```{r minorComb, echo=FALSE}
-mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") #there are 2 students with 2 maps minors - need to deal with this, but double counting double majors has been removed
-amc <- function(x) {
-  mid <- filter(mhlW,minor==x) %>% select(id) 
-  return(
-    filter(mhlW, id %in% mid$id, minorNum=="AddMinor") %>%
-      mutate(maps_minor=x) %>% group_by(maps_minor, minor) %>% 
-      summarise(count=n()) %>% filter(count>2) %>% arrange(desc(count))
-  )
-}
-
-my_kable(map_dfr(mm,amc)) %>% scroll_box(width = "75%", height = "300px")
-```
-
-Notice that for every MAPS minor, **Psychology** is either the first or second most popular additional minor. Since psychology is a very popular major, this may indicate that among non-psychology majors minoring in psychology is very popular.
-
 ## Major-Minor Associations
-Only `r sum(!is.na(majorHist$Major2))` students have a second major, so we ignore these majors for this report (this may be worth looking into in the near future though). Below we have a table of the minors in MAPS and majors with more than 3 students earning that major/minor combination. 
+Below we have a table of the majors in MAPS and minors with more than 4 students earning that major/minor combination. 
 
 ```{r majorAssoc, echo=FALSE}
-mhlW <- mhLong %>% mutate(minorNum = ifelse(minor %in% mm, "Minor1", "AddMinor")) %>% filter(majorNum=="Major1") 
-mhlW %>% filter(minorNum=="Minor1") %>% group_by(minor, major) %>% summarise(count=n()) %>% arrange(desc(count)) %>% filter(count>3) %>% my_kable() 
+mhlW <- mhLong %>% mutate(majorNum = ifelse(major %in% mm, "Major1", "AddMajor")) %>% filter(majorNum=="Major1") 
+mhlW %>% group_by(major, minor) %>% summarise(count=n()) %>% arrange(desc(count)) %>% filter(count>4) %>% my_kable() 
 ```
 
-The students minoring in Dual-Degree Engineering are *encouraged* to major or mathematics or math/physics and must be accepted to an approved engineering program, hence the high incidence of math/physics majors. As expected, there are also many students majoring in MAPS or Chemistry and using the CSC minor to satisfy the PSE PEAK. Besides these relationships within NSM, the most common majors earning minors within MAPS are business, psychology, and POE which are three of the most popular non-NSM majors at the College of Idaho.
+## Chord Diagram of MAPS Majors
+```{r chords, echo=FALSE, message=FALSE, warning=FALSE}
+library(RColorBrewer)
+library(chorddiag)
+
+majMin <- select(majorHist, Major1, Major2, Major3, Minor1, Minor2, Minor3, Grad.Year) %>%
+  gather(key=MajNum, value = MAJOR, -c(Minor1,Minor2, Minor3, Grad.Year)) %>% select(-MajNum) %>%
+  gather(key=MinorNum, value=minor, -c(MAJOR, Grad.Year)) %>%
+  select(-MinorNum) %>%
+  mutate(MAJOR = str_trim(MAJOR, side="both"), minor = str_to_lower(str_trim(minor, side="both")))
+
+majMin <- filter(majMin, !is.na(minor), minor!="", !is.na(MAJOR), MAJOR %in% mm)
+
+qual_cols = brewer.pal.info[brewer.pal.info$category == 'qual',]
+many_colors = unlist(mapply(brewer.pal, qual_cols$maxcolors, rownames(qual_cols)))
+
+chorddiag(
+  xtabs(~MAJOR+minor, data = majMin,
+        drop.unused.levels = TRUE),
+  showTicks = FALSE, groupColors = many_colors, type = "bipartite"
+)
+```
