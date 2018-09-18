@@ -32,6 +32,7 @@ get_descriptions <- function(class_url){
   return(data.frame(url=class_url,desc=course_desc_text, prerequisites=course_pre, corequisites=course_coreq, credits=course_cred))
 }
 
-maps_desc <- map_dfr(classes[classes$sub %in% c("MAT", "CSC", "PHY"),]$url, get_descriptions)
-maps <- inner_join(classes, maps_desc, by="url")
-maps <- maps[maps$desc!="",]
+#Example useage
+#maps_desc <- map_dfr(classes[classes$sub %in% c("MAT", "CSC", "PHY"),]$url, get_descriptions)
+#maps <- inner_join(classes, maps_desc, by="url")
+#maps <- maps[maps$desc!="",]
