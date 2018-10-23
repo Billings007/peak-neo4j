@@ -1,0 +1,53 @@
+---
+title: "NSM Major Credit Distribution"
+author: "Jason Preszler"
+date: "October 23, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+The Dean's recent PEAK revision proposal (Oct. 11, 2018) has a credit limit for majors of 33-36. This was obtained by doubling the "established" guidelines for minors having 15-18 credits to fit within PEAK. This establishment of minor guidelines is not followed by approximately $1/3$ of all minors at the College of Idaho, and is not supported by some faculty.
+
+# Description of Data
+All NSM majors are above this limit - with the potential exception of chemistry which doesn't list any required math or physics courses in the major despite some being prerequisites for required chemistry courses (CHE-431 - "Physical Chemistry I" - is required of the major and has prerequisites of MAT-175, PHY-271, and PHY-272; a "hidden" 13 credits.) Using the 2018-2019 catalog, I have gathered credit totals for each non-interdisciplinary NSM major (excluding Environmental Studies and Elementary Precertification, since such major will likely be broken up if the PEAK proposal is approved) as well as the distribution of credits at the 100, 200, and 300/400 level. I have included chemistry's hidden 13 credits of math and physics, and when a requirement allows a course at different levels (such as MAT-125 or MAT-212) I have counted the credits of the lower level course. The intend is to look at what a student seeking to do the bare minimum will have to do.
+
+# Summary of NSM Major Credit Requirements
+```{r load, echo=FALSE}
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(tidyr)
+
+nmc <- read.csv("nsm-majors.csv", header=TRUE) %>% filter(!str_detect(PEAK, ";"))
+
+```
+
+NSM majors have credit requirements ranging from `r min(nmc$Min.Credits)` to `r max(nmc$Max.Credits)` credits, with an average minimum credit count of `r mean(nmc$Min.Credits)` credits. Here is a table of credit requirements by major with distribution by course level:
+```{r}
+nmc%>% select(Name, Min.Credits, credit.100, credit.200, credit.3400) %>%
+  knitr::kable()
+```
+
+Here is a visual of the range of credits required by each major:
+```{r}
+library(plotly)
+nmc %>% select(Name, Min.Credits, Max.Credits) %>% 
+  gather(key="Type", value="Credits", -Name) %>%
+  ggplot(aes(x=Name, y=Credits, col=Name))+
+  geom_point()+
+  geom_path(aes(group=Name), size=3) -> cred.range
+ggplotly(cred.range)
+```
+
+Here is a visual of the credits required at each course level:
+```{r}
+nmc %>% select(Name, credit.100, credit.200, credit.3400) %>%
+  gather(key="Level", value="Credits", -Name) %>%
+  ggplot(aes(x=Level, col=Name, y=Credits))+
+  geom_point()+#position=position_dodge(0.2))+
+  geom_path(aes(group=Name)) -> cred.level
+ggplotly(cred.level)
+```

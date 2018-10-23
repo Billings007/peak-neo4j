@@ -1,0 +1,11 @@
+Name,Min.Credits,Max.Credits,Capstone,PEAK,credit.100,credit.200,credit.3400
+Biochemistry,55,58,included,NSM,12,14,28
+Biology,45,48,included,NSM,7,16,22
+Biomedical Sciences,45,49,included,NSM,11,20,18
+Chemistry,47,51,excluded,NSM,15,13,20
+Environmental Studies,72,86,included,NSM;SSH;HFA
+Exercise Science,44,48,included,NSM,7,18,22
+Elementary Precertification,50,52,excluded,NSM;SSH;PSE
+Math,38,40,excluded,NSM,8,10,19
+Math/CS,48,48,included,NSM,17,14,11
+Math/Phy,37,40,excluded,NSM,8,9,19
